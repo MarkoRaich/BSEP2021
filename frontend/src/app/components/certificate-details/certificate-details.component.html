@@ -1,0 +1,120 @@
+<h1 class="primary">Sertifikat</h1>
+<mat-dialog-content class="dialog-class">
+  <div class="span-12">
+      <ul class="name-value" style="width: 100%;">
+          <li>
+              <label>
+                Serijski broj : 
+              </label>
+              <span>
+                {{certDetails.serialNumber}}
+              </span>
+          </li>
+          <li>
+            <label>
+              Verzija : 
+            </label>
+            <span>
+              {{certDetails.version}}
+            </span>
+        </li>
+        <li>
+            <label>
+              Algoritam : 
+            </label>
+            <span>
+              {{certDetails.signatureAlgorithm}}
+            </span>
+        </li>
+        <li>
+            <label>
+              Heš algoritam : 
+            </label>
+            <span>
+              {{certDetails.signatureHashAlgorithm}}
+            </span>
+        </li>
+        <li>
+            <label>
+              Javni ključ : 
+            </label>
+            <span class="example">
+              {{certDetails.publicKey}}
+            </span>
+        </li>
+        <li>
+            <label>
+              Početni datum : 
+            </label>
+            <span>
+              {{certDetails.startDate}}
+            </span>
+        </li>
+        <li>
+            <label>
+              Krajnji datum : 
+            </label>
+            <span>
+              {{certDetails.endDate}}
+            </span>
+        </li>
+        <li>
+            <label>
+              Koren? : 
+            </label>
+            <span>
+              {{certDetails.isRoot}}
+            </span>
+        </li>
+        <li>
+            <label>
+              Subjekat : 
+            </label>
+            <span>
+              {{certDetails.subject}}
+            </span>
+        </li>
+        <li>
+            <label>
+              Izdavač : 
+            </label>
+            <span>
+              {{certDetails.issuer}}
+            </span>
+        </li>
+        <li>
+            <label>
+              Serijski broj izdavača : 
+            </label>
+            <span>
+              {{certDetails.issuerSerialNumber}}
+            </span>
+        </li>
+        <li>
+            <label>
+              Tip sertifikata : 
+            </label>
+            <span>
+              {{certDetails.type}}
+            </span>
+        </li>
+        <li>
+            <label>
+              Tip subjectKeyIdentifier : 
+            </label>
+            <span class="example">
+              {{certDetails.subjectKeyIdentifier}}
+            </span>
+        </li>
+        <li>
+            <label>
+             Upotreba : 
+            </label>
+            <span>
+              {{certDetails.keyUsageList}}
+            </span>
+        </li>
+
+      </ul>
+  </div>
+</mat-dialog-content>
