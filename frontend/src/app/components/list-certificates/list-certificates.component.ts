@@ -19,7 +19,7 @@ import { CertificateDetailsComponent } from '../certificate-details/certificate-
 export class ListCertificatesComponent implements OnInit {
 
   certificateDataSource: MatTableDataSource<CertificateDTO>;
-  displayedColumns: string[] = ['id','serialNumberSubject','serialNumberIssuer','startDate','endDate','CA','details','revoke'];
+  displayedColumns: string[] = ['id','serialNumberSubject','serialNumberIssuer','startDate','endDate','CA','details','revoke?','revoke'];
   itemsPerPage = environment.itemsPerPage;
   addCertificateSuccess: Subscription;
 
@@ -68,6 +68,17 @@ export class ListCertificatesComponent implements OnInit {
     )
   }
 
+  revokeCert(cert: CertificateDTO){
+    this.certificateService.revokeCertificate(cert.serialNumberSubject).subscribe(
+      (data: boolean) => {
+        if(data == true) {
+          this.toastr.success("Sertifikat je povučen. Povučeni su i svi u lancu čiji je on bio potpisnik.");
+        } else {
+          this.toastr.error("Došlo je do greške...");
+        }
+      }
+    )
+  }
 
   
 }

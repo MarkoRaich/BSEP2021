@@ -1,9 +1,11 @@
 package ftn.bsep.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import ftn.bsep.enumeration.CertificateType;
+import ftn.bsep.utilities.CertificateType;
 
+//DTO KLASA ZA PRIMANJE PODATAKA SA FRONTENDA
 public class CertificateDTO {
 
 		private String subjectCommonName;
@@ -14,46 +16,43 @@ public class CertificateDTO {
 	    private String subjectOrganizationUnit;
 	    private String subjectState;
 	    private String subjectCountry;
-	    private String startDate;
-	    private String endDate;
+	    private int duration;
 	    private String issuerSerialNumber;
 	    private CertificateType certificateType;
-	    private List<Integer> keyUsageList;
-	    private List<String> extendedKeyUsageList;
-	    private int typeSAN;
-	    private String valueSAN;
+	    private ArrayList<String> keyUsageList;
 	    boolean basicConstraints;
 	    
 	    
 	    
 	    
-		public CertificateDTO(String subjectCommonName, String subjectFirstName, String subjectLastName,
-				String subjectEmail, String subjectOrganization, String subjectOrganizationUnit, String subjectState,
-				String subjectCountry, String startDate, String endDate, String issuerSerialNumber,
-				CertificateType certificateType, List<Integer> keyUsageList, List<String> extendedKeyUsageList,
-				int typeSAN, String valueSAN, boolean basicConstraints) {
-			super();
-			this.subjectCommonName = subjectCommonName;
-			this.subjectFirstName = subjectFirstName;
-			this.subjectLastName = subjectLastName;
-			this.subjectEmail = subjectEmail;
-			this.subjectOrganization = subjectOrganization;
-			this.subjectOrganizationUnit = subjectOrganizationUnit;
-			this.subjectState = subjectState;
-			this.subjectCountry = subjectCountry;
-			this.startDate = startDate;
-			this.endDate = endDate;
-			this.issuerSerialNumber = issuerSerialNumber;
-			this.certificateType = certificateType;
-			this.keyUsageList = keyUsageList;
-			this.extendedKeyUsageList = extendedKeyUsageList;
-			this.typeSAN = typeSAN;
-			this.valueSAN = valueSAN;
-			this.basicConstraints = basicConstraints;
+		public CertificateDTO(  String subjectCommonName, String subjectFirstName, String subjectLastName,
+								String subjectEmail, String subjectOrganization, String subjectOrganizationUnit, String subjectState,
+								String subjectCountry, String startDate, String endDate, int duration, String issuerSerialNumber,
+								CertificateType certificateType, List<String> extendedKeyUsageList,
+								int typeSAN, String valueSAN, boolean basicConstraints) {
+			
+				super();
+				this.subjectCommonName = subjectCommonName;
+				this.subjectFirstName = subjectFirstName;
+				this.subjectLastName = subjectLastName;
+				this.subjectEmail = subjectEmail;
+				this.subjectOrganization = subjectOrganization;
+				this.subjectOrganizationUnit = subjectOrganizationUnit;
+				this.subjectState = subjectState;
+				this.subjectCountry = subjectCountry;
+				this.duration = duration;
+				this.issuerSerialNumber = issuerSerialNumber;
+				this.certificateType = certificateType;
+				this.keyUsageList = new ArrayList<>();
+				this.basicConstraints = basicConstraints;
 		}
+		
+		
 		public CertificateDTO() {
 			super();
 		}
+		
+		
 		public String getSubjectCommonName() {
 			return subjectCommonName;
 		}
@@ -102,18 +101,6 @@ public class CertificateDTO {
 		public void setSubjectCountry(String subjectCountry) {
 			this.subjectCountry = subjectCountry;
 		}
-		public String getStartDate() {
-			return startDate;
-		}
-		public void setStartDate(String startDate) {
-			this.startDate = startDate;
-		}
-		public String getEndDate() {
-			return endDate;
-		}
-		public void setEndDate(String endDate) {
-			this.endDate = endDate;
-		}
 		public String getIssuerSerialNumber() {
 			return issuerSerialNumber;
 		}
@@ -126,35 +113,39 @@ public class CertificateDTO {
 		public void setCertificateType(CertificateType certificateType) {
 			this.certificateType = certificateType;
 		}
-		public List<Integer> getKeyUsageList() {
+		public ArrayList<String> getKeyUsageList() {
 			return keyUsageList;
 		}
-		public void setKeyUsageList(List<Integer> keyUsageList) {
+		public void setKeyUsageList(ArrayList<String> keyUsageList) {
 			this.keyUsageList = keyUsageList;
-		}
-		public List<String> getExtendedKeyUsageList() {
-			return extendedKeyUsageList;
-		}
-		public void setExtendedKeyUsageList(List<String> extendedKeyUsageList) {
-			this.extendedKeyUsageList = extendedKeyUsageList;
-		}
-		public int getTypeSAN() {
-			return typeSAN;
-		}
-		public void setTypeSAN(int typeSAN) {
-			this.typeSAN = typeSAN;
-		}
-		public String getValueSAN() {
-			return valueSAN;
-		}
-		public void setValueSAN(String valueSAN) {
-			this.valueSAN = valueSAN;
 		}
 		public boolean isBasicConstraints() {
 			return basicConstraints;
 		}
 		public void setBasicConstraints(boolean basicConstraints) {
 			this.basicConstraints = basicConstraints;
+		}
+
+
+		public int getDuration() {
+			return duration;
+		}
+
+
+		public void setDuration(int duration) {
+			this.duration = duration;
+		}
+
+
+		@Override
+		public String toString() {
+			return "CertificateDTO [subjectCommonName=" + subjectCommonName + ", subjectFirstName=" + subjectFirstName
+					+ ", subjectLastName=" + subjectLastName + ", subjectEmail=" + subjectEmail
+					+ ", subjectOrganization=" + subjectOrganization + ", subjectOrganizationUnit="
+					+ subjectOrganizationUnit + ", subjectState=" + subjectState + ", subjectCountry=" + subjectCountry
+					+ ", duration=" + duration + ", issuerSerialNumber=" + issuerSerialNumber + ", certificateType="
+					+ certificateType + ", keyUsageList=" + keyUsageList + ", basicConstraints=" + basicConstraints
+					+ "]";
 		}
 	    
 	    

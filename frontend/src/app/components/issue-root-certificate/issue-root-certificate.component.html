@@ -19,32 +19,88 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <!-- section-title -->
                     <div class="section-title mb-0">
-                        <form [formGroup]="dateForm" class="form-full-width">
+                    
+                        <form [formGroup]="certificateForm" class="form-full-width">
+
                             <mat-form-field class="form-full-width">
-                                <input matInput [matDatepicker]=" picker1" placeholder="Datum od" formControlName="dateFrom" readonly [min]="minDate">
-                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+                                <mat-label>trajanje sertifikata</mat-label>
+                                <mat-select formControlName="duration">
+                                    <mat-option value=1>1 godina</mat-option>
+                                    <mat-option value=2>2 godine</mat-option>
+                                    <mat-option value=3>3 godine</mat-option>
+                                    <mat-option value=4>4 godine</mat-option>
+                                </mat-select>
                             </mat-form-field>
-            
+
                             <mat-form-field class="form-full-width">
-                                <input matInput [matDatepicker]=" picker2" placeholder="Datum do" formControlName="dateTo" readonly [min]="minDate">
-                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+                                <input matInput type="text" placeholder="opšte ime" formControlName="commonName">
                             </mat-form-field>
-            
-                            <mat-error *ngIf="(dateForm.get('dateFrom').errors && dateForm.get('dateFrom').errors['required']) || 
-                            (dateForm.get('dateTo').errors && dateForm.get('dateTo').errors['required']) ">
-                                Odaberite početni i krajnji datum.
-                            </mat-error>
-                            <mat-error
-                                *ngIf="dateForm.get('dateTo').errors && dateForm.get('dateTo').errors['timeError']">
-                                Početni datum mora biti pre krajnjeg datuma.
-                            </mat-error>
+                        
+
+                       
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="ime" formControlName="firstName">
+                            </mat-form-field>
+                       
+
+                       
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="prezime" formControlName="lastName">
+                            </mat-form-field>
+                      
+
+                       
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="email" formControlName="email">
+                            </mat-form-field>
+                       
+                        
+                        
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="organizacija" formControlName="organization">
+                            </mat-form-field>
+                        
+
+                       
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="organizaciona jedinica" formControlName="organizationUnit">
+                            </mat-form-field>
+                       
+
+                       
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="regija" formControlName="state">
+                            </mat-form-field>
+                        
+
+                        
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="država" formControlName="country">
+                            </mat-form-field>
+                        
+
+                       
+                            <mat-form-field class="form-full-width">
+                                <mat-label>namena sertifikata</mat-label>
+                                <mat-select formControlName="keyUsage" multiple>
+                                    <mat-option value="DigitalSignature">DigitalSignature</mat-option>
+                                    <mat-option value="NonRepudiation">NonRepudiation</mat-option>
+                                    <mat-option value="KeyEncipherment">KeyEncipherment</mat-option>
+                                    <mat-option value="DataEncipherment">DataEncipherment</mat-option>
+                                    <mat-option value="KeyAgreement">KeyAgreement</mat-option>
+                                    <mat-option value="KeyCertSign">KeyCertSign</mat-option>
+                                    <mat-option value="CRLSign">CRLSign</mat-option>
+                                    <mat-option value="EncipherOnly">EncipherOnly</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
                         </form>
                         
                        
                     </div>
                     <!-- /.section-title -->
+
+                    <button mat-raised-button color="primary" (click)="create()" [disabled]="!certificateForm.valid">Kreiraj</button>
                 </div>
             </div>
         </div>

@@ -7,16 +7,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.x500.RDN;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.asn1.x500.style.IETFUtils;
-import org.bouncycastle.asn1.x509.AuthorityKeyIdentifier;
-import org.bouncycastle.asn1.x509.SubjectKeyIdentifier;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
-import org.bouncycastle.util.encoders.Hex;
 
+import ftn.bsep.model.CertificateDB;
+
+//DTO KLASA ZA SLANJE DETALJA O SERTIFIKATU NA FRONTEND
 public class CertificateDetailsDTO {
 	
 	    private String serialNumber;
@@ -42,24 +41,19 @@ public class CertificateDetailsDTO {
 	    private String issuerSerialNumber;
 
 	    private String type;
-	    private List<String> subjectAlternativeNames;
-	    private String authorityKeyIdentifier;
-	    private String subjectKeyIdentifier;
 	    private List<String> keyUsageList;
-	    private List<String> extendedKeyUsageList;
+
 	    
 	    
 		public CertificateDetailsDTO() {
 			super();
 		}
 
-		
-		
 
-		public CertificateDetailsDTO(JcaX509CertificateHolder certificateHolder, X509Certificate cert, String issuerSerialNumber, Boolean isRoot) throws CertificateParsingException {
-	        this.serialNumber = certificateHolder.getSerialNumber().toString();
+		public CertificateDetailsDTO(JcaX509CertificateHolder certificateHolder, X509Certificate cert, CertificateDB certDB, Boolean isRoot) throws CertificateParsingException {
+	        
+			this.serialNumber = certificateHolder.getSerialNumber().toString();
 	        this.version =certificateHolder.getVersionNumber();
-	        //this.signatureAlgorithm = certificateHolder.getSignatureAlgorithm().toString();
 	        this.signatureAlgorithm = "sha256RSA";
 	        this.signatureHashAlgorithm = "sha256";
 	        this.publicKey = cert.getPublicKey().toString();
@@ -76,9 +70,9 @@ public class CertificateDetailsDTO {
 	        X500Name issuer = certificateHolder.getIssuer();
 	        generateIssuer(issuer);
 	        
-	        this.issuerSerialNumber = issuerSerialNumber;
+	        this.issuerSerialNumber = certDB.getSerialNumberIssuer();
 
-	        if(cert.getBasicConstraints()>-1)
+	        if(certDB.isCa())
 	        {
 	            this.type = "CA";
 	        }
@@ -87,56 +81,6 @@ public class CertificateDetailsDTO {
 	            this.type = "END-ENTITY";
 	        }
 
-	        //subject key identifier
-	        SubjectKeyIdentifier subjectKeyIdent = SubjectKeyIdentifier.getInstance(DEROctetString.getInstance(cert.getExtensionValue("2.5.29.14")).getOctets());
-	        byte[] keyIdentifier = subjectKeyIdent.getKeyIdentifier();
-	        this.subjectKeyIdentifier = new String(Hex.encode(keyIdentifier));
-
-	        //authority key identifier
-	        if(!isRoot){
-	            AuthorityKeyIdentifier authorityKeyIdent = AuthorityKeyIdentifier.getInstance(DEROctetString.getInstance(cert.getExtensionValue("2.5.29.35")).getOctets());
-	            keyIdentifier = authorityKeyIdent.getKeyIdentifier();
-	            this.authorityKeyIdentifier = new String(Hex.encode(keyIdentifier));
-	        }
-
-	        //Extended key usage
-	        if(cert.getExtendedKeyUsage() != null)
-	        {
-	            this.extendedKeyUsageList = new ArrayList<>();
-	            for(String s :cert.getExtendedKeyUsage())
-	            {
-	                System.out.println("Extended key usage");
-	                System.out.println(s);
-	                switch (s){
-	                    case "1.3.6.5.5.7.3.3": this.extendedKeyUsageList.add("Code signing"); break;
-	                    case "1.3.6.5.5.7.3.1": this.extendedKeyUsageList.add("Server Authentication"); break;
-	                    case "1.3.6.5.5.7.3.2": this.extendedKeyUsageList.add("Client Authentication"); break;
-	                    case "1.3.6.5.5.7.3.9": this.extendedKeyUsageList.add("OCSP signing"); break;
-	                }
-
-	            }
-	        }
-
-	        //subject alternative names
-	        if(cert.getSubjectAlternativeNames() != null) {
-	            this.subjectAlternativeNames = new ArrayList<String>();
-	            for (List<?> s : cert.getSubjectAlternativeNames()) {
-	                String[] split = s.toString().replace("]", "").replace("[", "").split(",");
-	                System.out.println(split[0] + " : " + split[1]);
-	                Integer code = Integer.parseInt(split[0]);
-	                switch (code) {
-	                    case 2:
-	                        this.subjectAlternativeNames.add("DNS Name = " + split[1]);
-	                        break;
-	                    case 6:
-	                        this.subjectAlternativeNames.add("URI = " + split[1]);
-	                        break;
-	                    case 7:
-	                        this.subjectAlternativeNames.add("IP Adress = " + split[1]);
-	                        break;
-	                }
-	            }
-	        }
 
 	        //key usage
 	        this.keyUsageList = new ArrayList<String>();
@@ -474,36 +418,6 @@ public class CertificateDetailsDTO {
 		}
 
 
-		public List<String> getSubjectAlternativeNames() {
-			return subjectAlternativeNames;
-		}
-
-
-		public void setSubjectAlternativeNames(List<String> subjectAlternativeNames) {
-			this.subjectAlternativeNames = subjectAlternativeNames;
-		}
-
-
-		public String getAuthorityKeyIdentifier() {
-			return authorityKeyIdentifier;
-		}
-
-
-		public void setAuthorityKeyIdentifier(String authorityKeyIdentifier) {
-			this.authorityKeyIdentifier = authorityKeyIdentifier;
-		}
-
-
-		public String getSubjectKeyIdentifier() {
-			return subjectKeyIdentifier;
-		}
-
-
-		public void setSubjectKeyIdentifier(String subjectKeyIdentifier) {
-			this.subjectKeyIdentifier = subjectKeyIdentifier;
-		}
-
-
 		public List<String> getKeyUsageList() {
 			return keyUsageList;
 		}
@@ -514,15 +428,5 @@ public class CertificateDetailsDTO {
 		}
 
 
-		public List<String> getExtendedKeyUsageList() {
-			return extendedKeyUsageList;
-		}
-
-
-		public void setExtendedKeyUsageList(List<String> extendedKeyUsageList) {
-			this.extendedKeyUsageList = extendedKeyUsageList;
-		}
-	    
-	    
 
 }

@@ -41,10 +41,9 @@ public class CertificateDB {
 
 
 
-	public CertificateDB(Long id, String serialNumberSubject, String serialNumberIssuer, Date startDate, Date endDate,
+	public CertificateDB(String serialNumberSubject, String serialNumberIssuer, Date startDate, Date endDate,
 			boolean ca, boolean revoked) {
 		super();
-		this.id = id;
 		this.serialNumberSubject = serialNumberSubject;
 		this.serialNumberIssuer = serialNumberIssuer;
 		this.startDate = startDate;

@@ -59,3 +59,11 @@ h1 {
     cursor: pointer;
 }
 
+.check-btn {
+    color: orange;
+}
+
+.revoke-btn {
+    color: red;
+}
+

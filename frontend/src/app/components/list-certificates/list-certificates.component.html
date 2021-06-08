@@ -68,11 +68,18 @@
                                         (click)="seeDetails(element)">detalji</button>
                                 </td>
                             </ng-container>
-                            <ng-container matColumnDef="revoke">
+                            <ng-container matColumnDef="revoke?">
                                 <th mat-header-cell *matHeaderCellDef> Proveri povučenost </th>
                                 <td mat-cell *matCellDef="let element">
-                                    <button mat-raised-button  color="primary"
+                                    <button mat-raised-button  class="check-btn"
                                         (click)="checkRevoke(element)">proveri</button>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="revoke">
+                                <th mat-header-cell *matHeaderCellDef> Povuci </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-raised-button  class="revoke-btn"
+                                        (click)="revokeCert(element)">povuci</button>
                                 </td>
                             </ng-container>
                             <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>

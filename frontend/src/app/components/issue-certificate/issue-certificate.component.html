@@ -19,11 +19,107 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <!-- section-title -->
                     <div class="section-title mb-0">
+                    
+                        <form [formGroup]="certificateForm" class="form-full-width">
+
+                            <mat-form-field class="form-full-width">
+                                <mat-label>tip sertifikata</mat-label>
+                                <mat-select formControlName="certificateType">
+                                    <mat-option value="INTERMEDIATE">CA</mat-option>
+                                    <mat-option value="END_ENTITY">END ENTITY</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+
+                            <mat-form-field class="form-full-width">
+                                <mat-label>izdavač</mat-label>
+                                <mat-select formControlName="issuerSerialNumber">
+                                   <mat-option *ngFor="let certificate of issuerCertificates" [value]="certificate.serialNumberSubject">
+                                       {{ certificate.serialNumberSubject}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            
+                            <mat-form-field class="form-full-width">
+                                <mat-label>trajanje sertifikata (maksimalno, ne može više od izdavača itd...)</mat-label>
+                                <mat-select formControlName="duration">
+                                    <mat-option value=1>1 godina</mat-option>
+                                    <mat-option value=2>2 godine</mat-option>
+                                    <mat-option value=3>3 godine</mat-option>
+                                    <mat-option value=4>4 godine</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="opšte ime" formControlName="commonName">
+                            </mat-form-field>
+                        
+
                        
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="ime" formControlName="firstName">
+                            </mat-form-field>
+                       
+
+                       
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="prezime" formControlName="lastName">
+                            </mat-form-field>
+                      
+
+                       
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="email" formControlName="email">
+                            </mat-form-field>
+                       
+                        
+                        
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="organizacija" formControlName="organization">
+                            </mat-form-field>
+                        
+
+                       
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="organizaciona jedinica" formControlName="organizationUnit">
+                            </mat-form-field>
+                       
+
+                       
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="regija" formControlName="state">
+                            </mat-form-field>
+                        
+
+                        
+                            <mat-form-field class="form-full-width">
+                                <input matInput type="text" placeholder="država" formControlName="country">
+                            </mat-form-field>
+                        
+
+                       
+                            <mat-form-field class="form-full-width">
+                                <mat-label>namena sertifikata</mat-label>
+                                <mat-select formControlName="keyUsage" multiple>
+                                    <mat-option value="DigitalSignature">DigitalSignature</mat-option>
+                                    <mat-option value="NonRepudiation">NonRepudiation</mat-option>
+                                    <mat-option value="KeyEncipherment">KeyEncipherment</mat-option>
+                                    <mat-option value="DataEncipherment">DataEncipherment</mat-option>
+                                    <mat-option value="KeyAgreement">KeyAgreement</mat-option>
+                                    <mat-option value="KeyCertSign">KeyCertSign</mat-option>
+                                    <mat-option value="CRLSign">CRLSign</mat-option>
+                                    <mat-option value="EncipherOnly">EncipherOnly</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                        </form>
                         
                        
                     </div>
                     <!-- /.section-title -->
+
+                    <button mat-raised-button color="primary" (click)="create()" [disabled]="!certificateForm.valid">Kreiraj</button>
                 </div>
             </div>
         </div>

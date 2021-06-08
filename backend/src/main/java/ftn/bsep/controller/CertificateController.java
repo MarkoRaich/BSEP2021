@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ftn.bsep.dto.CertificateBasicDTO;
 import ftn.bsep.dto.CertificateDTO;
 import ftn.bsep.dto.CertificateDetailsDTO;
-import ftn.bsep.dto.IssuerDTO;
 import ftn.bsep.model.CertificateDB;
 import ftn.bsep.service.CertificateService;
 
@@ -30,20 +28,15 @@ public class CertificateController {
 	
 	
 	
-	
+	//VRAĆA SVE SERTIFIKATE NA GLAVNU STRANU NA FRONTENDU
 	@GetMapping(value="/getAllCertificates", produces="application/json")	
     public List<CertificateDB> getAllCertificates() {
 			
 	        return certificateService.getAllCertificates();
-	    }
+	}
 
 	
-	@GetMapping(value="/getAllValidCA", produces="application/json")
-    public List<IssuerDTO> getAllValidCA() throws CertificateEncodingException {
-
-        return certificateService.getAllValidCA();
-    }
-	
+	//ČITA IZ KEYSTORE-A SVE DETALJE SERTIFIKATA 
 	@GetMapping(value="/getCertificateDetails/{serialNumber}", produces = "application/json")
 	public CertificateDetailsDTO getCertificateDetails(@PathVariable("serialNumber") String serialNumber) throws CertificateEncodingException, CertificateParsingException {
 
@@ -51,24 +44,66 @@ public class CertificateController {
 	}
 	
 	
-    @PostMapping(value="/issueCertificate", consumes="application/json")
-    public ResponseEntity<?> issueCertificate(@RequestBody CertificateDTO certificateDTO) throws CertificateEncodingException {
+	//VRAĆA SVE CA SERTIFIKATE DA BI NA FRONTENDU IZABRAO KO ĆE BITI ISSUER-POTPISNIK
+	@GetMapping(value="/getAllValidCA", produces="application/json")
+    public List<CertificateDB> getAllValidCA() throws CertificateEncodingException {
 
-        boolean certCreated = certificateService.issueCertificate(certificateDTO);
-        if(certCreated) {
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return certificateService.getAllValidCA();
     }
-    
+	
+	
+    //PROVERAVA DA LI JE SERTIFIKAT POVUČEN
     @GetMapping(value="/checkRevocationStatusOCSP/{serialNumber}")
     public ResponseEntity<Boolean> checkRevocationStatusOCSP(@PathVariable("serialNumber") String serialNumber){
 
         boolean revoked = this.certificateService.checkRevocationStatusOCSP(serialNumber);
+        
         if(revoked) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(false, HttpStatus.OK);
         }
     }
+
+    
+    //POVLAČI SERTIFIKAT I SVE KOJE ON POTPISUJE AKO IH IMA ITD...
+    @GetMapping(value="/revokeCertificate/{serialNumber}")
+    public ResponseEntity<Boolean> revokeCertificate(@PathVariable("serialNumber") String serialNumber){
+    	
+    	boolean revocation = this.certificateService.revokeCertificate(serialNumber);
+    	
+    	if(revocation) {
+    		return new ResponseEntity<>(true, HttpStatus.OK);
+    	} else {
+    		return new ResponseEntity<>(false, HttpStatus.OK);
+    	}
+    }
+    
+    
+    //KREIRA SAMOPOTPISNI ROOT SERTIFIKAT
+    @PostMapping(value="/createRootCertificate", consumes="application/json")
+    public ResponseEntity<?> createRootCertificate(@RequestBody CertificateDTO certificateDTO) throws CertificateEncodingException, CertificateParsingException {
+
+    	System.out.println(certificateDTO.toString());
+    	
+        boolean certCreated = certificateService.issueRootCertificate(certificateDTO);
+        if(certCreated) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+    
+    
+    //KREIRA CA ILI END SERTIFIKAT
+    @PostMapping(value="/createCAorEndCertificate", consumes="application/json")
+    public ResponseEntity<?> CreateCAorEndCertificate(@RequestBody CertificateDTO certificateDTO) throws CertificateEncodingException,  CertificateParsingException {
+
+        boolean certCreated = certificateService.issueCAorEndCertificate(certificateDTO);
+        if(certCreated) {
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    
 }
