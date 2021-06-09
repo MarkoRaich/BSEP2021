@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   itemsPerPage: 10,
-  baseUrl: "http://localhost:8080"
+  baseUrl: "http://localhost:8080",
+
+  login               : "/api/auth/login",
+  register            : "/api/auth/register"
 };
 
 /*

@@ -7,13 +7,21 @@
 
       <mat-toolbar color="primary">Sadržaj</mat-toolbar>
 
-      <mat-nav-list>
+       <!-- U ZAVISNOSTI OD ROLE MENJA SE SADRZAJ TOOLBARA-->
+       <mat-nav-list *ngIf="!isLoggedIn()">
+        <a mat-list-item href="/login">Uloguj se</a>
+        <a mat-list-item href="/register">Registruj se</a>
+      </mat-nav-list>
+
+      <mat-nav-list *ngIf="isAdmin()">
         <a mat-list-item routerLink="/certificates/all-certificates">Pregled izdatih sertifikata</a>
         <a mat-list-item routerLink="/certificates/issue-root-cert">Izdaj ROOT sertifikat</a>
         <a mat-list-item routerLink="/certificates/issue-cert">Izdaj CA ili END sertifikat</a>
-
       </mat-nav-list>
 
+      <mat-nav-list *ngIf="isUser()">
+        <a mat-list-item routerLink="/certificates/download-certificate">Preuzmi sertifikat</a>
+      </mat-nav-list>
     
     </mat-sidenav>
 
@@ -30,6 +38,20 @@
           </button>
           {{title}}
         </span>
+
+        <div *ngIf="!isLoggedIn()">
+          <button  mat-button mat-ripple routerLink="/login">
+              <span>Prijava</span>
+          </button>
+          <button  mat-button mat-ripple routerLink="/register">
+             <span>Registracija</span>
+          </button>
+        </div>
+        <div *ngIf="isLoggedIn()">
+          <button  mat-button mat-ripple (click)="onLogout()">
+              Odjava
+          </button>
+        </div>
 
       </mat-toolbar>
 
