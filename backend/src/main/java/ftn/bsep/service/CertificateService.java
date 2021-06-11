@@ -26,5 +26,9 @@ public interface CertificateService {
 
 	boolean revokeCertificate(String serialNumber);
 
+	List<CertificateDB> getMyCertificate(String serialNumberCert);
+
+	byte[] downloadCertificate(String serialNumber) throws CertificateEncodingException;
+
 
 }

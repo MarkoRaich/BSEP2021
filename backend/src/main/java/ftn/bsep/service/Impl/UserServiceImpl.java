@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import ftn.bsep.model.Admin;
+import ftn.bsep.model.DigEntity;
 import ftn.bsep.repository.AdminRepository;
+import ftn.bsep.repository.EntityRepository;
 import ftn.bsep.service.UserService;
 
 @Service
@@ -15,6 +17,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	private AdminRepository adminRepository;
+	
+	@Autowired
+	private EntityRepository entityRepository;
 	
 	
 	
@@ -41,14 +46,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	        } catch (UsernameNotFoundException ex) {
 
 	        }
-//		 try {
-//	            User user = userRepository.findOneByUsername(username);
-//	            if (user != null) {
-//	                return user;
-//	            }
-//	        } catch (UsernameNotFoundException ex) {
-//
-//	        }
+		 try {
+	            DigEntity entity = entityRepository.findOneByUsername(username);
+	            if (entity != null) {
+	                return entity;
+	            }
+	        } catch (UsernameNotFoundException ex) {
+
+	        }
 		return null;
 	}
 
@@ -66,14 +71,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	        }
 
-//	        try {
-//	            User user = userRepository.findByEmail(email);
-//	            if (user != null) {
-//	                return true;
-//	            }
-//	        } catch (UsernameNotFoundException ex) {
-//
-//	        }
+	        try {
+	            DigEntity entity = entityRepository.findByUsername(email);
+	            if (entity != null) {
+	                return true;
+	            }
+	        } catch (UsernameNotFoundException ex) {
+
+	        }
 
 	   return false;
 

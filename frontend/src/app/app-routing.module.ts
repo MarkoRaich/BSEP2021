@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DownloadCertificateComponent } from './components/download-certificate/download-certificate.component';
 import { IssueCertificateComponent } from './components/issue-certificate/issue-certificate.component';
 import { IssueRootCertificateComponent } from './components/issue-root-certificate/issue-root-certificate.component';
 import { ListCertificatesComponent } from './components/list-certificates/list-certificates.component';
 import { LoginComponent } from './components/login/login.component';
 import { NonAuthenticatedComponent } from './components/non-authenticated/non-authenticated.component';
 import { NonAuthorizedComponent } from './components/non-authorized/non-authorized.component';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AdminGuard } from './guards/admin.guard';
+import { UserGuard } from './guards/user.guard';
 
 const routes: Routes = [
 
@@ -24,8 +27,14 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    component: RegisterComponent,
+    component: RegisterUserComponent,
     pathMatch: 'full'
+  },
+  {
+    path: 'register/admin',
+    component: RegisterComponent,
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
   },
   {
     path: 'certificates/all-certificates',
@@ -44,6 +53,12 @@ const routes: Routes = [
     component: IssueRootCertificateComponent,
     pathMatch: 'full',
     canActivate: [AdminGuard]
+  },
+    {
+    path: 'certificates/download-certificate',
+    component: DownloadCertificateComponent,
+    pathMatch: 'full',
+    canActivate: [UserGuard]
   },
 
   //***************** GRESKE i PRAVA PRISTUPA******************************

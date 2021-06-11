@@ -7,6 +7,8 @@ import { CertificateDTO } from 'src/app/models/certificateDTO';
 import { KeyUsage } from 'src/app/models/key-usage';
 import { CertificateService } from 'src/app/services/certificate.service';
 import {Router} from '@angular/router';
+import { Entity } from 'src/app/models/entity';
+import { EntityService } from 'src/app/services/entity.service';
 
 
 @Component({
@@ -20,38 +22,28 @@ export class IssueRootCertificateComponent implements OnInit {
 
   certificate: CertDTO;
 
+  entities: Entity[] = [];
+
   constructor(private toastr : ToastrService, 
               private formBuilder : FormBuilder,
-              private certificateService: CertificateService,
+              private certificateService : CertificateService,
+              private entityService : EntityService,
               private router: Router ) { }
 
   ngOnInit(): void {
 
     this.certificateForm = this.formBuilder.group({
-      commonName: new FormControl(null,[Validators.required]),
-      firstName: new FormControl(null,[Validators.required, Validators.pattern('[a-zA-Z ]*')]),
-      lastName: new FormControl(null,[Validators.required, Validators.pattern('[a-zA-Z ]*')]),
-      email: new FormControl(null,[Validators.required, Validators.email]),
-      organization: new FormControl(null,[Validators.required]),
-      organizationUnit: new FormControl(null,[Validators.required]),
       duration: new FormControl(null, [Validators.required]),
-      state: new FormControl(null,[Validators.required, Validators.pattern('[a-zA-Z ]*')]),
-      country: new FormControl(null,[Validators.required, Validators.pattern('[a-zA-Z ]*')]),
       keyUsage: new FormControl(null,[Validators.required]),
-      
-    })
+      entityId: new FormControl(null,[Validators.required])
+    });
+
+    this.getEntites();
 
   }
 
   create(){
-    this.certificate = new CertDTO(this.certificateForm.value.commonName,
-                                   this.certificateForm.value.firstName,
-                                   this.certificateForm.value.lastName,
-                                   this.certificateForm.value.email,
-                                   this.certificateForm.value.organization,
-                                   this.certificateForm.value.organizationUnit,
-                                   this.certificateForm.value.state,
-                                   this.certificateForm.value.country,
+    this.certificate = new CertDTO(this.certificateForm.value.entityId,
                                    this.certificateForm.value.duration,
                                    "1",
                                    "SELF_SIGNED",
@@ -69,6 +61,13 @@ export class IssueRootCertificateComponent implements OnInit {
         }
       }
     )                              
+  }
+
+  getEntites(): void {
+    this.entityService.getEntitiesWithoutActiveCertificate().subscribe(
+      (data: Entity[]) => {
+        this.entities = data;
+      })
   }
 
 }

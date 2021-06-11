@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.bsep.security.auth.JwtAuthenticationRequest;
+import ftn.bsep.dto.AdminDTO;
+import ftn.bsep.dto.EntityDTO;
 import ftn.bsep.dto.LoggedInUserDTO;
-import ftn.bsep.dto.UserDTO;
 import ftn.bsep.service.AuthenticationService;
-import ftn.bsep.service.UserService;
 
 import java.io.IOException;
 
@@ -28,20 +28,35 @@ public class AuthenticationController {
 
 	
 	
-	@PostMapping(value = "/register")
-	public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
+	@PostMapping(value = "/register-admin")
+	public ResponseEntity<AdminDTO> registerAdmin(@RequestBody AdminDTO adminDTO) {
 	 
-		UserDTO user = authService.registerAdmin(userDTO);
-	        if (user == null) {
+		AdminDTO admin = authService.registerAdmin(adminDTO);
+	        if (admin == null) {
 	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	        }
 
-	        return new ResponseEntity<>(user, HttpStatus.CREATED);
+	        System.out.println("Registrovan novi admin: " + admin.getFirstName() + " " + admin.getLastName());
+	        return new ResponseEntity<>(admin, HttpStatus.CREATED);
 	}
+	
+	
+	@PostMapping(value = "/register-entity")
+	public ResponseEntity<EntityDTO> registerEntity(@RequestBody EntityDTO entityDTO) {
+	 
+		EntityDTO entity = authService.registerEnitity(entityDTO);
+	        if (entity == null) {
+	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        }
+	        
+	        System.out.println("Registrovan novi entitet: " + entity.getCommonName());
+	        return new ResponseEntity<>(entity, HttpStatus.CREATED);
+	}
+	
 	
 	@PostMapping(value= "/login")
 	public ResponseEntity<LoggedInUserDTO> login(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException, IOException {
-		
+		 
 		 try {
 	        	
 	            LoggedInUserDTO loggedInUserDTO = authService.login(authenticationRequest);

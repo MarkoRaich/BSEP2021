@@ -1,0 +1,96 @@
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-caption">
+                    <h1 class="page-title">Moj sertifikat</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-header-->
+
+<!-- page-content -->
+<div class="card-section">
+    <div class="container">
+        <div class="card-block bg-white mb30">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <!-- section-title -->
+                    <div class="section-title mb-0">
+                       
+                        <table mat-table [dataSource]="certificateDataSource" class="mat-elevation-z8 table" style="text-align:center;" matSort>
+
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{element.id}}
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="serialNumberSubject">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Serijski broj subjekta </th>
+                                <td mat-cell *matCellDef="let element"> 
+                                    {{element.serialNumberSubject}}
+                                 </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="serialNumberIssuer">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Serijski broj izdavača </th>
+                                <td mat-cell *matCellDef=" let element"> 
+                                    {{element.serialNumberIssuer}} 
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="startDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Početni datum važenja </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.startDate | date:"dd.MM.yyyy."}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="endDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Krajnji datum važenja </th>
+                                <td mat-cell *matCellDef=" let element">
+                                    {{element.endDate | date:"dd.MM.yyyy."}}
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="CA">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Može da izdaje? </th>
+                                <td mat-cell *matCellDef=" let element"> 
+                                    {{element.ca}} 
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="details">
+                                <th mat-header-cell *matHeaderCellDef> Detalji</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-raised-button  color="primary"
+                                        (click)="seeDetails(element)">detalji</button>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="revoke?">
+                                <th mat-header-cell *matHeaderCellDef> Proveri povučenost </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-raised-button  class="check-btn"
+                                        (click)="checkRevoke(element)">proveri</button>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="download">
+                                <th mat-header-cell *matHeaderCellDef> Preuzmi </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-raised-button  class="revoke-btn"
+                                        (click)="downloadCert(element)">preuzmi</button>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator [pageSize]=itemsPerPage class=" table" showFirstLastButtons></mat-paginator>
+                    </div>
+                    <!-- /.section-title -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-content -->

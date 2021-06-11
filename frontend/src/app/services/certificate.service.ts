@@ -12,7 +12,6 @@ import { CertificateDTO } from "../models/certificateDTO";
 })
 export class CertificateService {
     
-  
     url = environment.baseUrl + '/api/certificates';
 
     certificates: BehaviorSubject<CertificateDTO[]> = new BehaviorSubject<CertificateDTO[]>([]);
@@ -37,6 +36,17 @@ export class CertificateService {
           );
         return this.certificates.asObservable();
     }
+
+    getMyCertificate() {
+        this.http.get(this.url + '/getMyCertificate').subscribe(
+            (data : CertificateDTO[]) => {
+                this.certificates.next(data);
+            },
+            (error: CertificateDTO) => {}
+          );
+        return this.certificates.asObservable();
+      }
+      
     
     getValidCACertificates() {
         this.http.get(this.url + '/getAllValidCA/').subscribe(
@@ -59,5 +69,10 @@ export class CertificateService {
     getDetails(serialNumberSubject: string) {
         return this.http.get(this.url + '/getCertificateDetails/' + serialNumberSubject );
     }
+
+    downloadCertificate(serialNumberSubject: string) {
+        return this.http.get(this.url + '/downloadCertificate/' + serialNumberSubject, {responseType: 'blob'});
+      }
+      
 
 }

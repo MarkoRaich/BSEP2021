@@ -30,7 +30,7 @@ public class TokenUtils {
     @Value("Authorization")
     private String AUTH_HEADER;
 
-    private static final String AUDIENCE_UNKNOWN = "unknown";
+    //private static final String AUDIENCE_UNKNOWN = "unknown";
     private static final String AUDIENCE_WEB = "web";
     private static final String AUDIENCE_MOBILE = "mobile";
     private static final String AUDIENCE_TABLET = "tablet";
@@ -87,7 +87,7 @@ public class TokenUtils {
     // Funkcija za validaciju JWT tokena
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
-        final Date created = getIssuedAtDateFromToken(token);
+        //final Date created = getIssuedAtDateFromToken(token);
 
         return (username != null && username.equals(userDetails.getUsername()));
     }

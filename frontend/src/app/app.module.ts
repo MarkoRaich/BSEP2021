@@ -21,6 +21,8 @@ import { AdminGuard } from './guards/admin.guard';
 import { UserGuard } from './guards/user.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { DownloadCertificateComponent } from './components/download-certificate/download-certificate.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     LoginComponent,
     RegisterComponent,
     NonAuthenticatedComponent,
-    NonAuthorizedComponent
+    NonAuthorizedComponent,
+    RegisterUserComponent,
+    DownloadCertificateComponent
   ],
   imports: [
     BrowserModule,

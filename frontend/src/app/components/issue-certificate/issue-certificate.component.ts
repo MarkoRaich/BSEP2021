@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { CertDTO } from 'src/app/models/certDTO';
 import { CertificateDTO } from 'src/app/models/certificateDTO';
 import { CertificateService } from 'src/app/services/certificate.service';
+import { Entity } from 'src/app/models/entity';
+import { EntityService } from 'src/app/services/entity.service';
 
 @Component({
   selector: 'app-issue-certificate',
@@ -19,42 +21,33 @@ export class IssueCertificateComponent implements OnInit {
 
   issuerCertificates: CertificateDTO[] = [];
 
+  entities: Entity[] = [];
+
   constructor(private toastr : ToastrService, 
               private formBuilder : FormBuilder,
               private certificateService: CertificateService,
+              private entityService : EntityService,
               private router: Router ) { }
 
   ngOnInit(): void {
 
     this.certificateForm = this.formBuilder.group({
       issuerSerialNumber: new FormControl(null,[Validators.required]),
+      entityId: new FormControl(null,[Validators.required]),
       certificateType: new FormControl(null,[Validators.required]),
-      commonName: new FormControl(null,[Validators.required]),
-      firstName: new FormControl(null,[Validators.required]),
-      lastName: new FormControl(null,[Validators.required]),
-      email: new FormControl(null,[Validators.required, Validators.email]),
-      organization: new FormControl(null,[Validators.required]),
-      organizationUnit: new FormControl(null,[Validators.required]),
       duration: new FormControl(null, [Validators.required]),
-      state: new FormControl(null,[Validators.required]),
-      country: new FormControl(null,[Validators.required]),
       keyUsage: new FormControl(null,[Validators.required]),
       
     });
 
     this.getIssuerCerts();
 
+    this.getEntities();
+
   }
 
   create(){
-    this.certificate = new CertDTO(this.certificateForm.value.commonName,
-                                   this.certificateForm.value.firstName,
-                                   this.certificateForm.value.lastName,
-                                   this.certificateForm.value.email,
-                                   this.certificateForm.value.organization,
-                                   this.certificateForm.value.organizationUnit,
-                                   this.certificateForm.value.state,
-                                   this.certificateForm.value.country,
+    this.certificate = new CertDTO(this.certificateForm.value.entityId,
                                    this.certificateForm.value.duration,
                                    this.certificateForm.value.issuerSerialNumber,
                                    this.certificateForm.value.certificateType,
@@ -78,6 +71,13 @@ export class IssueCertificateComponent implements OnInit {
     this.certificateService.getValidCACertificates().subscribe(
       (certs: CertificateDTO[]) => {
         this.issuerCertificates = certs;
+      })
+  }
+
+  getEntities(): void {
+    this.entityService.getEntitiesWithoutActiveCertificate().subscribe(
+      (data: Entity[]) => {
+        this.entities = data;
       })
   }
 

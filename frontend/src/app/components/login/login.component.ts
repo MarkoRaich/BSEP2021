@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
 
               },
             (error) => {               
-                this.toastr.error("Neispravni podaci. Pokušajte ponovo.", 'Login');
+                this.toastr.error("Neispravni kredencijali. Pokušajte ponovo.", 'Login');
         })
     }
 
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
            this.router.navigate(['certificates/all-certificates']);
         }
         if(this.userService.isUser()){
-            this.router.navigate(['']);
+            this.router.navigate(['certificates/download-certificate']);
         }
     }
 }

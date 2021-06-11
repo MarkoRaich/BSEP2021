@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-md-8 offset-md-2">
           <mat-card>
-            <h3>Registracija administratora</h3>
+            <h3>Registracija</h3>
             <hr>
             <form [formGroup]="registerForm">
 
@@ -36,6 +36,11 @@
                     <!-- jos neka ogranicenja na lozinku duzina, karakteri itd... -->
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="password">Opšte ime</label>
+                <input  type="text" formControlName="commonName" class="form-control">
+            </div>
         
             <div class="form-group">
                 <label for="password">Ime</label>
@@ -46,8 +51,29 @@
                 <label for="password">Prezime</label>
                 <input  type="text" formControlName="lastName" class="form-control">
             </div>
+       
+            <div class="form-group">
+                <label for="password">Organizacija</label>
+                <input  type="text" formControlName="organization" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Organizaciona jedinica</label>
+                <input  type="text" formControlName="organizationUnit" class="form-control">
+            </div>
+       
+            <div class="form-group">
+                <label for="password">Regija</label>
+                <input  type="text" formControlName="state" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Država</label>
+                <input  type="text" formControlName="country" class="form-control">
+            </div>
         
-              <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!registerForm.valid">Registruj</button>
+          
+              <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!registerForm.valid">Registruj se</button>
 
             
             </form>

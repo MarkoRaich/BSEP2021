@@ -8,7 +8,8 @@ export const environment = {
   baseUrl: "http://localhost:8080",
 
   login               : "/api/auth/login",
-  register            : "/api/auth/register"
+  registerUser            : "/api/auth/register-entity",
+  registerAdmin            : "/api/auth/register-admin"
 };
 
 /*

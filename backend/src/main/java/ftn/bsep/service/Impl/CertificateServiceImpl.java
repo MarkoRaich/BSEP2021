@@ -9,6 +9,7 @@ import java.security.SecureRandom;
 import java.security.SignatureException;
 import java.security.cert.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +24,10 @@ import org.springframework.stereotype.Service;
 import ftn.bsep.dto.CertificateDTO;
 import ftn.bsep.dto.CertificateDetailsDTO;
 import ftn.bsep.model.CertificateDB;
+import ftn.bsep.model.DigEntity;
 import ftn.bsep.repository.CertificateRepository;
 import ftn.bsep.repository.CertificateStore;
+import ftn.bsep.repository.EntityRepository;
 import ftn.bsep.service.CertificateService;
 import ftn.bsep.utilities.BigIntGenerator;
 import ftn.bsep.utilities.CertificateGenerator;
@@ -40,6 +43,9 @@ public class CertificateServiceImpl implements CertificateService {
 	
 	@Autowired
 	private CertificateRepository certificateRepository;
+	
+	@Autowired
+	private EntityRepository entityRepository;
 	
 	@Autowired
     private CertificateGenerator certificateGenerator;
@@ -62,6 +68,20 @@ public class CertificateServiceImpl implements CertificateService {
 	public List<CertificateDB> getAllCertificates()  {
 		
 		return certificateRepository.findAll();
+	}
+	
+	
+	@Override
+	public List<CertificateDB> getMyCertificate(String serialNumberCert) {
+
+		List<CertificateDB> certs = new ArrayList<CertificateDB>();
+		
+		CertificateDB cert =  certificateRepository.findBySerialNumberSubject(serialNumberCert);
+		if(cert != null) {
+			certs.add(cert);
+		}
+		
+		return certs;
 	}
 	
 
@@ -126,7 +146,14 @@ public class CertificateServiceImpl implements CertificateService {
 		if(cert.isRevoked()) { //vec je povucen vrati ok
 			return true;
 		}
+		
 	    cert.setRevoked(true);
+		
+	    DigEntity entity = entityRepository.findBySerialNumberCertificate(serialNumber);
+		entity.setHasActiveCertificate(false);
+		//entity.setSerialNumberCertificate(null);
+		//System.out.println(entity.toString());
+		 
 	    this.certificateRepository.save(cert);
 	    System.out.println("Povučen sertifikat: "+ cert.getSerialNumberSubject());
 	    
@@ -155,6 +182,12 @@ public class CertificateServiceImpl implements CertificateService {
 					if(!certDB.isRevoked()) {
 						
 						certDB.setRevoked(true);
+						
+						DigEntity entity = entityRepository.findBySerialNumberCertificate(certDB.getSerialNumberSubject());
+						entity.setHasActiveCertificate(false);
+						//entity.setSerialNumberCertificate(null);
+						//System.out.println(entity.toString());
+						
 						this.certificateRepository.save(certDB);
 					    System.out.println("Povučen sertifikat: "+ certDB.getSerialNumberSubject());
 					    
@@ -250,6 +283,12 @@ public class CertificateServiceImpl implements CertificateService {
 	        return false;
 	    }
 		
+		//flag za vracanje entiteta na frontend
+		DigEntity entity = this.entityRepository.findOneById(Long.valueOf(certificateDTO.getEntityId()));
+
+		entity.setHasActiveCertificate(true);
+		entity.setSerialNumberCertificate(cert.getSerialNumber().toString());
+		
 		//cuvanje sertifikata u key store-u
 		store.saveCertificate(new X509Certificate[]{cert}, keyPairSubject.getPrivate(), fileLocationCA, passwordCA);
 		
@@ -289,6 +328,12 @@ public class CertificateServiceImpl implements CertificateService {
 	        return false;
 	    }
 		
+		//flag za vracanje entiteta na frontend
+		DigEntity entity = this.entityRepository.findOneById(Long.valueOf(certificateDTO.getEntityId()));
+		
+		entity.setHasActiveCertificate(true);
+		entity.setSerialNumberCertificate(cert.getSerialNumber().toString());
+		
 		if (certificateDTO.getCertificateType().equals(CertificateType.END_ENTITY)) {
 			
 			//cuvanje sertifikata u key store-u
@@ -323,7 +368,7 @@ public class CertificateServiceImpl implements CertificateService {
 													 true,
 													 false);
 			this.certificateRepository.save(certDB);
-			System.out.println("izdat INTEMEDIATE sertifikat: " + cert.getSerialNumber());
+			System.out.println("izdat INTERMEDIATE sertifikat: " + cert.getSerialNumber());
 				
 			return true;
 		
@@ -332,6 +377,19 @@ public class CertificateServiceImpl implements CertificateService {
 		return false;
 	}
 
+	@Override
+	public byte[] downloadCertificate(String serialNumber) throws CertificateEncodingException {
+		
+		CertificateDB certDB = certificateRepository.findBySerialNumberSubject(serialNumber);
+		X509Certificate x509Cert;
+		if(certDB.isCa()) {
+			x509Cert = (X509Certificate) store.findCertificateBySerialNumber(serialNumber, fileLocationCA, passwordCA);
+		} else {
+			x509Cert = (X509Certificate) store.findCertificateBySerialNumber(serialNumber,fileLocationEE, passwordEE);
+		}
+		
+		return Base64.getEncoder().encode(x509Cert.getEncoded());
+	}
 	
 
 	
@@ -353,6 +411,8 @@ public class CertificateServiceImpl implements CertificateService {
 	 
 	 private SubjectData generateSubjectData(CertificateDTO certificateDTO) {
 	       
+		 		DigEntity entity = this.entityRepository.findOneById(Long.valueOf(certificateDTO.getEntityId()));
+		 
 		 		//pocetni datum je datum kreiranja
 	            Date startDate = new Date(); 
 	            
@@ -375,64 +435,64 @@ public class CertificateServiceImpl implements CertificateService {
 	            String serialNumber = bigIntGenerator.generateRandom().toString();
 
 	            X500NameBuilder builder = new X500NameBuilder(BCStyle.INSTANCE);
-	            if(!certificateDTO.getSubjectCommonName().equals("")) {
-	                builder.addRDN(BCStyle.CN, certificateDTO.getSubjectCommonName());
+	            if(!entity.getCommonName().equals("")) {
+	                builder.addRDN(BCStyle.CN, entity.getCommonName());
 	            }
-	            if(!certificateDTO.getSubjectLastName().equals("")) {
-	                builder.addRDN(BCStyle.SURNAME, certificateDTO.getSubjectLastName());
+	            if(!entity.getLastName().equals("")) {
+	                builder.addRDN(BCStyle.SURNAME, entity.getLastName());
 	            }
-	            if(!certificateDTO.getSubjectFirstName().equals("")) {
-	                builder.addRDN(BCStyle.GIVENNAME, certificateDTO.getSubjectFirstName());
+	            if(!entity.getFirstName().equals("")) {
+	                builder.addRDN(BCStyle.GIVENNAME, entity.getFirstName());
 	            }
-	            if(!certificateDTO.getSubjectOrganization().equals("")) {
-	                builder.addRDN(BCStyle.O, certificateDTO.getSubjectOrganization());
+	            if(!entity.getOrganization().equals("")) {
+	                builder.addRDN(BCStyle.O, entity.getOrganization());
 	            }
-	            if(!certificateDTO.getSubjectOrganizationUnit().equals("")) {
-	                builder.addRDN(BCStyle.OU, certificateDTO.getSubjectOrganizationUnit());
+	            if(!entity.getOrganizationUnit().equals("")) {
+	                builder.addRDN(BCStyle.OU, entity.getOrganizationUnit());
 	            }
-	            if(!certificateDTO.getSubjectState().equals("")){
-	                builder.addRDN(BCStyle.ST, certificateDTO.getSubjectState());
+	            if(!entity.getState().equals("")){
+	                builder.addRDN(BCStyle.ST, entity.getState());
 	            }
-	            if(!certificateDTO.getSubjectCountry().equals("")) {
-	                builder.addRDN(BCStyle.C, certificateDTO.getSubjectCountry());
+	            if(!entity.getCountry().equals("")) {
+	                builder.addRDN(BCStyle.C, entity.getCountry());
 	            }
-	            if(!certificateDTO.getSubjectEmail().equals("")) {
-	                builder.addRDN(BCStyle.E, certificateDTO.getSubjectEmail());
+	            if(!entity.getUsername().equals("")) {
+	                builder.addRDN(BCStyle.E, entity.getUsername());
 	            }
 
 	            return new SubjectData(keyPairSubject.getPublic(), builder.build(), serialNumber, startDate, endDate);
 	       
 	 }
 	 
-	 private IssuerData generateIssuerDataForSelfSigned(CertificateDTO certificateDTO) {
+	 private IssuerData generateIssuerDataForSelfSigned(CertificateDTO certDTO) {
 		 	
-		 	
+		 	DigEntity entity = this.entityRepository.findOneById(Long.valueOf(certDTO.getEntityId()));
 		 
 	        try {
 	            X500NameBuilder builder = new X500NameBuilder(BCStyle.INSTANCE);
-	            if(!certificateDTO.getSubjectCommonName().equals("")) {
-	                builder.addRDN(BCStyle.CN, certificateDTO.getSubjectCommonName());
+	            if(!entity.getCommonName().equals("")) {
+	                builder.addRDN(BCStyle.CN, entity.getCommonName());
 	            }
-	            if(!certificateDTO.getSubjectLastName().equals("")) {
-	                builder.addRDN(BCStyle.SURNAME, certificateDTO.getSubjectLastName());
+	            if(!entity.getLastName().equals("")) {
+	                builder.addRDN(BCStyle.SURNAME, entity.getLastName());
 	            }
-	            if(!certificateDTO.getSubjectFirstName().equals("")) {
-	                builder.addRDN(BCStyle.GIVENNAME, certificateDTO.getSubjectFirstName());
+	            if(!entity.getFirstName().equals("")) {
+	                builder.addRDN(BCStyle.GIVENNAME, entity.getFirstName());
 	            }
-	            if(!certificateDTO.getSubjectOrganization().equals("")) {
-	                builder.addRDN(BCStyle.O, certificateDTO.getSubjectOrganization());
+	            if(!entity.getOrganization().equals("")) {
+	                builder.addRDN(BCStyle.O, entity.getOrganization());
 	            }
-	            if(!certificateDTO.getSubjectOrganizationUnit().equals("")) {
-	                builder.addRDN(BCStyle.OU, certificateDTO.getSubjectOrganizationUnit());
+	            if(!entity.getOrganizationUnit().equals("")) {
+	                builder.addRDN(BCStyle.OU, entity.getOrganizationUnit());
 	            }
-	            if(!certificateDTO.getSubjectState().equals("")){
-	                builder.addRDN(BCStyle.ST, certificateDTO.getSubjectState());
+	            if(!entity.getState().equals("")){
+	                builder.addRDN(BCStyle.ST, entity.getState());
 	            }
-	            if(!certificateDTO.getSubjectCountry().equals("")) {
-	                builder.addRDN(BCStyle.C, certificateDTO.getSubjectCountry());
+	            if(!entity.getCountry().equals("")) {
+	                builder.addRDN(BCStyle.C, entity.getCountry());
 	            }
-	            if(!certificateDTO.getSubjectEmail().equals("")) {
-	                builder.addRDN(BCStyle.E, certificateDTO.getSubjectEmail());
+	            if(!entity.getUsername().equals("")) {
+	                builder.addRDN(BCStyle.E, entity.getUsername());
 	            }
 
 	            return new IssuerData(keyPairSubject.getPrivate(), builder.build());
@@ -441,5 +501,8 @@ public class CertificateServiceImpl implements CertificateService {
 	        }
 	        return null;
 	    }
+
+
+
 
 }

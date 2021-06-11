@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 
 import ftn.bsep.model.Admin;
 
-public class UserDTO {
+public class AdminDTO {
 
 	@NotEmpty(message = "Email is empty.")
 	@Email(message = "Email is invalid.")
@@ -25,14 +25,14 @@ public class UserDTO {
 	
 	
 	
-	public UserDTO() {
+	public AdminDTO() {
 		super();
 	}
 
-	public UserDTO(@NotEmpty(message = "Email is empty.") @Email(message = "Email is invalid.") String email,
-			@NotEmpty(message = "Password is empty.") @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$") String password,
-			@NotEmpty(message = "First name is empty.") String firstName,
-			@NotEmpty(message = "Last name is empty.") String lastName) {
+	public AdminDTO(@NotEmpty(message = "Email is empty.") @Email(message = "Email is invalid.") String email,
+					@NotEmpty(message = "Password is empty.") @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$") String password,
+					@NotEmpty(message = "First name is empty.") String firstName,
+					@NotEmpty(message = "Last name is empty.") String lastName) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -40,7 +40,7 @@ public class UserDTO {
 		this.lastName = lastName;
 	}
 
-	public UserDTO(Admin admin) {
+	public AdminDTO(Admin admin) {
 		this.email = admin.getUsername();
 		this.firstName=admin.getFirstName();
 		this.lastName = admin.getLastName();		

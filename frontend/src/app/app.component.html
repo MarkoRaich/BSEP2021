@@ -17,10 +17,11 @@
         <a mat-list-item routerLink="/certificates/all-certificates">Pregled izdatih sertifikata</a>
         <a mat-list-item routerLink="/certificates/issue-root-cert">Izdaj ROOT sertifikat</a>
         <a mat-list-item routerLink="/certificates/issue-cert">Izdaj CA ili END sertifikat</a>
+        <a mat-list-item routerLink="/register/admin">Registruj novog administratora</a>
       </mat-nav-list>
 
       <mat-nav-list *ngIf="isUser()">
-        <a mat-list-item routerLink="/certificates/download-certificate">Preuzmi sertifikat</a>
+        <a mat-list-item routerLink="/certificates/download-certificate">Moj sertifikat</a>
       </mat-nav-list>
     
     </mat-sidenav>
