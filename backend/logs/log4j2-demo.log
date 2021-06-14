@@ -1,0 +1,177 @@
+2021-06-13 11:08:06.993  INFO DESKTOP-5P61M1J --- [  restartedMain] f.b.PkiApplication                       : Starting PkiApplication using Java 15.0.1 on DESKTOP-5P61M1J with PID 10268 (C:\Users\Marko\Documents\GitHub\BSEP2021\backend\target\classes started by Marko in C:\Users\Marko\Documents\GitHub\BSEP2021\backend)
+2021-06-13 11:08:06.994  INFO DESKTOP-5P61M1J --- [  restartedMain] f.b.PkiApplication                       : No active profile set, falling back to default profiles: default
+2021-06-13 11:08:07.227  INFO DESKTOP-5P61M1J --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-06-13 11:08:07.264  INFO DESKTOP-5P61M1J --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 6 JPA repository interfaces.
+2021-06-13 11:08:07.336  INFO DESKTOP-5P61M1J --- [  restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@8249066' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-13 11:08:07.338  INFO DESKTOP-5P61M1J --- [  restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-13 11:08:07.407  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8443 (https)
+2021-06-13 11:08:07.408  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["https-jsse-nio-8443"]
+2021-06-13 11:08:07.409  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2021-06-13 11:08:07.409  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-06-13 11:08:07.438  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2021-06-13 11:08:07.438  INFO DESKTOP-5P61M1J --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 441 ms
+2021-06-13 11:08:07.486  INFO DESKTOP-5P61M1J --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-06-13 11:08:07.491  INFO DESKTOP-5P61M1J --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-2 - Starting...
+2021-06-13 11:08:07.541  INFO DESKTOP-5P61M1J --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-2 - Start completed.
+2021-06-13 11:08:07.542  INFO DESKTOP-5P61M1J --- [  restartedMain] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2021-06-13 11:08:07.963  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.964  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "admin_authority" does not exist, skipping
+2021-06-13 11:08:07.966  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.966  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "admin_authority" does not exist, skipping
+2021-06-13 11:08:07.968  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.969  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "confirmation_token" does not exist, skipping
+2021-06-13 11:08:07.971  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.971  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "entity_authority" does not exist, skipping
+2021-06-13 11:08:07.973  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.973  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "entity_authority" does not exist, skipping
+2021-06-13 11:08:07.975  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.976  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "reset_token" does not exist, skipping
+2021-06-13 11:08:07.978  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.978  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "admin" does not exist, skipping
+2021-06-13 11:08:07.980  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.980  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "admin_authority" does not exist, skipping
+2021-06-13 11:08:07.982  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.983  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "authority" does not exist, skipping
+2021-06-13 11:08:07.985  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.985  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "certificatedb" does not exist, skipping
+2021-06-13 11:08:07.988  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.988  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "confirmation_token" does not exist, skipping
+2021-06-13 11:08:07.990  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.991  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "dig_entity" does not exist, skipping
+2021-06-13 11:08:07.993  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.993  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "entity_authority" does not exist, skipping
+2021-06-13 11:08:07.996  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.996  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "reset_token" does not exist, skipping
+2021-06-13 11:08:07.999  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:08:07.999  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : sequence "hibernate_sequence" does not exist, skipping
+2021-06-13 11:08:08.675  INFO DESKTOP-5P61M1J --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-06-13 11:08:08.675  INFO DESKTOP-5P61M1J --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-06-13 11:08:08.698  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-06-13 11:08:08.746  WARN DESKTOP-5P61M1J --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-06-13 11:08:09.850  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1a3ec62d, org.springframework.security.web.context.SecurityContextPersistenceFilter@b2425e5, org.springframework.security.web.header.HeaderWriterFilter@63097622, org.springframework.web.filter.CorsFilter@2683720f, org.springframework.security.web.authentication.logout.LogoutFilter@530052db, ftn.bsep.security.auth.TokenAuthenticationFilter@4f22f5c4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49bd85bb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@61ad42c8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@11cf4a93, org.springframework.security.web.session.SessionManagementFilter@66dfc96b, org.springframework.security.web.access.ExceptionTranslationFilter@d89ea50, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@50dd3dc]
+2021-06-13 11:08:09.940  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["https-jsse-nio-8443"]
+2021-06-13 11:08:10.342  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8443 (https) with context path ''
+2021-06-13 11:08:10.345  INFO DESKTOP-5P61M1J --- [  restartedMain] f.b.PkiApplication                       : Started PkiApplication in 3.404 seconds (JVM running for 86.444)
+2021-06-13 11:08:10.347  INFO DESKTOP-5P61M1J --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2021-06-13 11:10:35.973  INFO DESKTOP-5P61M1J --- [       Thread-9] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-06-13 11:10:35.974  INFO DESKTOP-5P61M1J --- [       Thread-9] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2021-06-13 11:10:36.156  INFO DESKTOP-5P61M1J --- [       Thread-9] c.z.h.HikariDataSource                   : HikariPool-2 - Shutdown initiated...
+2021-06-13 11:10:36.162  INFO DESKTOP-5P61M1J --- [       Thread-9] c.z.h.HikariDataSource                   : HikariPool-2 - Shutdown completed.
+2021-06-13 11:10:36.299  INFO DESKTOP-5P61M1J --- [  restartedMain] f.b.PkiApplication                       : Starting PkiApplication using Java 15.0.1 on DESKTOP-5P61M1J with PID 10268 (C:\Users\Marko\Documents\GitHub\BSEP2021\backend\target\classes started by Marko in C:\Users\Marko\Documents\GitHub\BSEP2021\backend)
+2021-06-13 11:10:36.300  INFO DESKTOP-5P61M1J --- [  restartedMain] f.b.PkiApplication                       : No active profile set, falling back to default profiles: default
+2021-06-13 11:10:36.500  INFO DESKTOP-5P61M1J --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-06-13 11:10:36.534  INFO DESKTOP-5P61M1J --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 6 JPA repository interfaces.
+2021-06-13 11:10:36.600  INFO DESKTOP-5P61M1J --- [  restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@609d38b9' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-13 11:10:36.601  INFO DESKTOP-5P61M1J --- [  restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-13 11:10:36.671  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8443 (https)
+2021-06-13 11:10:36.672  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["https-jsse-nio-8443"]
+2021-06-13 11:10:36.672  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2021-06-13 11:10:36.673  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-06-13 11:10:36.696  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2021-06-13 11:10:36.696  INFO DESKTOP-5P61M1J --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 394 ms
+2021-06-13 11:10:36.748  INFO DESKTOP-5P61M1J --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-06-13 11:10:36.755  INFO DESKTOP-5P61M1J --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-3 - Starting...
+2021-06-13 11:10:36.796  INFO DESKTOP-5P61M1J --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-3 - Start completed.
+2021-06-13 11:10:36.797  INFO DESKTOP-5P61M1J --- [  restartedMain] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2021-06-13 11:10:37.196  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.196  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "admin_authority" does not exist, skipping
+2021-06-13 11:10:37.198  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.198  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "admin_authority" does not exist, skipping
+2021-06-13 11:10:37.201  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.201  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "confirmation_token" does not exist, skipping
+2021-06-13 11:10:37.203  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.204  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "entity_authority" does not exist, skipping
+2021-06-13 11:10:37.206  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.206  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "entity_authority" does not exist, skipping
+2021-06-13 11:10:37.209  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.209  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "reset_token" does not exist, skipping
+2021-06-13 11:10:37.212  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.212  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "admin" does not exist, skipping
+2021-06-13 11:10:37.214  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.214  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "admin_authority" does not exist, skipping
+2021-06-13 11:10:37.216  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.217  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "authority" does not exist, skipping
+2021-06-13 11:10:37.218  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.219  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "certificatedb" does not exist, skipping
+2021-06-13 11:10:37.220  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.220  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "confirmation_token" does not exist, skipping
+2021-06-13 11:10:37.222  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.223  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "dig_entity" does not exist, skipping
+2021-06-13 11:10:37.225  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.225  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "entity_authority" does not exist, skipping
+2021-06-13 11:10:37.227  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.227  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "reset_token" does not exist, skipping
+2021-06-13 11:10:37.229  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:37.229  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : sequence "hibernate_sequence" does not exist, skipping
+2021-06-13 11:10:39.045  INFO DESKTOP-5P61M1J --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-06-13 11:10:39.045  INFO DESKTOP-5P61M1J --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-06-13 11:10:39.075  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-06-13 11:10:39.129  WARN DESKTOP-5P61M1J --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-06-13 11:10:41.016  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@75e4f718, org.springframework.security.web.context.SecurityContextPersistenceFilter@7b76fe17, org.springframework.security.web.header.HeaderWriterFilter@515164bb, org.springframework.web.filter.CorsFilter@5af076e7, org.springframework.security.web.authentication.logout.LogoutFilter@5d17e452, ftn.bsep.security.auth.TokenAuthenticationFilter@2b6628c5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4b6f2d57, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@11c1fc3d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@503527b5, org.springframework.security.web.session.SessionManagementFilter@787f1c69, org.springframework.security.web.access.ExceptionTranslationFilter@dc7bdcb, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@768a9b3]
+2021-06-13 11:10:41.091  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["https-jsse-nio-8443"]
+2021-06-13 11:10:41.610  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8443 (https) with context path ''
+2021-06-13 11:10:41.613  INFO DESKTOP-5P61M1J --- [  restartedMain] f.b.PkiApplication                       : Started PkiApplication in 5.367 seconds (JVM running for 237.712)
+2021-06-13 11:10:41.615  INFO DESKTOP-5P61M1J --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2021-06-13 11:10:42.560  INFO DESKTOP-5P61M1J --- [      Thread-15] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-06-13 11:10:42.561  INFO DESKTOP-5P61M1J --- [      Thread-15] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2021-06-13 11:10:42.810  INFO DESKTOP-5P61M1J --- [      Thread-15] c.z.h.HikariDataSource                   : HikariPool-3 - Shutdown initiated...
+2021-06-13 11:10:42.818  INFO DESKTOP-5P61M1J --- [      Thread-15] c.z.h.HikariDataSource                   : HikariPool-3 - Shutdown completed.
+2021-06-13 11:10:42.960  INFO DESKTOP-5P61M1J --- [  restartedMain] f.b.PkiApplication                       : Starting PkiApplication using Java 15.0.1 on DESKTOP-5P61M1J with PID 10268 (C:\Users\Marko\Documents\GitHub\BSEP2021\backend\target\classes started by Marko in C:\Users\Marko\Documents\GitHub\BSEP2021\backend)
+2021-06-13 11:10:42.961  INFO DESKTOP-5P61M1J --- [  restartedMain] f.b.PkiApplication                       : No active profile set, falling back to default profiles: default
+2021-06-13 11:10:43.152  INFO DESKTOP-5P61M1J --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-06-13 11:10:43.188  INFO DESKTOP-5P61M1J --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 6 JPA repository interfaces.
+2021-06-13 11:10:43.249  INFO DESKTOP-5P61M1J --- [  restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@38a9b312' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-13 11:10:43.250  INFO DESKTOP-5P61M1J --- [  restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-13 11:10:43.313  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8443 (https)
+2021-06-13 11:10:43.314  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["https-jsse-nio-8443"]
+2021-06-13 11:10:43.314  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2021-06-13 11:10:43.314  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-06-13 11:10:43.338  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2021-06-13 11:10:43.338  INFO DESKTOP-5P61M1J --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 375 ms
+2021-06-13 11:10:43.388  INFO DESKTOP-5P61M1J --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-06-13 11:10:43.392  INFO DESKTOP-5P61M1J --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-4 - Starting...
+2021-06-13 11:10:43.433  INFO DESKTOP-5P61M1J --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-4 - Start completed.
+2021-06-13 11:10:43.433  INFO DESKTOP-5P61M1J --- [  restartedMain] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2021-06-13 11:10:43.794  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.794  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "admin_authority" does not exist, skipping
+2021-06-13 11:10:43.796  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.796  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "admin_authority" does not exist, skipping
+2021-06-13 11:10:43.798  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.799  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "confirmation_token" does not exist, skipping
+2021-06-13 11:10:43.800  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.800  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "entity_authority" does not exist, skipping
+2021-06-13 11:10:43.802  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.802  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "entity_authority" does not exist, skipping
+2021-06-13 11:10:43.804  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.804  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : relation "reset_token" does not exist, skipping
+2021-06-13 11:10:43.805  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.806  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "admin" does not exist, skipping
+2021-06-13 11:10:43.807  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.807  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "admin_authority" does not exist, skipping
+2021-06-13 11:10:43.809  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.809  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "authority" does not exist, skipping
+2021-06-13 11:10:43.810  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.811  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "certificatedb" does not exist, skipping
+2021-06-13 11:10:43.812  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.812  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "confirmation_token" does not exist, skipping
+2021-06-13 11:10:43.814  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.814  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "dig_entity" does not exist, skipping
+2021-06-13 11:10:43.816  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.816  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "entity_authority" does not exist, skipping
+2021-06-13 11:10:43.818  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.818  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : table "reset_token" does not exist, skipping
+2021-06-13 11:10:43.820  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : SQL Warning Code: 0, SQLState: 00000
+2021-06-13 11:10:43.820  WARN DESKTOP-5P61M1J --- [  restartedMain] o.h.e.j.s.SqlExceptionHelper             : sequence "hibernate_sequence" does not exist, skipping
+2021-06-13 11:10:45.801  INFO DESKTOP-5P61M1J --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-06-13 11:10:45.801  INFO DESKTOP-5P61M1J --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-06-13 11:10:45.826  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-06-13 11:10:45.867  WARN DESKTOP-5P61M1J --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-06-13 11:10:46.786  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31d5d483, org.springframework.security.web.context.SecurityContextPersistenceFilter@43c9bd0, org.springframework.security.web.header.HeaderWriterFilter@61cbee54, org.springframework.web.filter.CorsFilter@5ae8c1f7, org.springframework.security.web.authentication.logout.LogoutFilter@1bbc856, ftn.bsep.security.auth.TokenAuthenticationFilter@51900e85, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3240637, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3da3f149, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4e51c550, org.springframework.security.web.session.SessionManagementFilter@1e284dda, org.springframework.security.web.access.ExceptionTranslationFilter@638c8272, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3e87e51f]
+2021-06-13 11:10:46.878  INFO DESKTOP-5P61M1J --- [  restartedMain] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["https-jsse-nio-8443"]
+2021-06-13 11:10:47.296  INFO DESKTOP-5P61M1J --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8443 (https) with context path ''
+2021-06-13 11:10:47.300  INFO DESKTOP-5P61M1J --- [  restartedMain] f.b.PkiApplication                       : Started PkiApplication in 4.389 seconds (JVM running for 243.398)
+2021-06-13 11:10:47.301  INFO DESKTOP-5P61M1J --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2021-06-13 11:10:57.713  INFO DESKTOP-5P61M1J --- [      Thread-21] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-06-13 11:10:57.713  INFO DESKTOP-5P61M1J --- [      Thread-21] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2021-06-13 11:10:57.845  INFO DESKTOP-5P61M1J --- [      Thread-21] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown initiated...
+2021-06-13 11:10:57.850  INFO DESKTOP-5P61M1J --- [      Thread-21] c.z.h.HikariDataSource                   : HikariPool-4 - Shutdown completed.

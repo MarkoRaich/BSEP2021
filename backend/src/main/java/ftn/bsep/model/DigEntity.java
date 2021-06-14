@@ -69,11 +69,22 @@ public class DigEntity implements UserDetails {
     @Column(nullable = false)
     private String country;
     
+    @NotNull(message = "Question cannot be null.")
+    @Column(nullable = false)
+    private String securityQuestion;
+    
+    @NotNull(message = "Answer cannot be null.")
+    @Column(nullable = false)
+    private String securityAnswer;
+    
     @Column(nullable=false)
     private boolean hasActiveCertificate;
 	
     @Column
     private String serialNumberCertificate;
+    
+    @Column(nullable=false)
+    private boolean isEnabled;
     
 	
   //vezano za prava pristupa spring security
@@ -130,7 +141,7 @@ public class DigEntity implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 
-		return true;
+		return isEnabled;
 	}
 
 
@@ -249,14 +260,42 @@ public class DigEntity implements UserDetails {
 	}
 
 
+	public String getSecurityQuestion() {
+		return securityQuestion;
+	}
+
+
+	public void setSecurityQuestion(String securityQuestion) {
+		this.securityQuestion = securityQuestion;
+	}
+
+
+	public String getSecurityAnswer() {
+		return securityAnswer;
+	}
+
+
+	public void setSecurityAnswer(String securityAnswer) {
+		this.securityAnswer = securityAnswer;
+	}
+
+
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
+
 	@Override
 	public String toString() {
 		return "DigEntity [id=" + id + ", username=" + username + ", password=" + password + ", commonName="
 				+ commonName + ", firstName=" + firstName + ", lastName=" + lastName + ", organization=" + organization
 				+ ", organizationUnit=" + organizationUnit + ", state=" + state + ", country=" + country
+				+ ", securityQuestion=" + securityQuestion + ", securityAnswer=" + securityAnswer
 				+ ", hasActiveCertificate=" + hasActiveCertificate + ", serialNumberCertificate="
 				+ serialNumberCertificate + ", authorities=" + authorities + "]";
 	}
+
+
 	
 	
 	

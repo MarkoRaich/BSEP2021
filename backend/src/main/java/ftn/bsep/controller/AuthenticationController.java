@@ -1,17 +1,22 @@
 package ftn.bsep.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ftn.bsep.security.auth.JwtAuthenticationRequest;
 import ftn.bsep.dto.AdminDTO;
 import ftn.bsep.dto.EntityDTO;
 import ftn.bsep.dto.LoggedInUserDTO;
+import ftn.bsep.dto.NewpasswordDTO;
 import ftn.bsep.service.AuthenticationService;
 
 import java.io.IOException;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,37 +30,38 @@ public class AuthenticationController {
 
 	@Autowired
     private AuthenticationService authService;
-
 	
 	
-	@PostMapping(value = "/register-admin")
-	public ResponseEntity<AdminDTO> registerAdmin(@RequestBody AdminDTO adminDTO) {
+	
+	
+	@PostMapping(value = "/register-admin", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> registerAdmin(@Valid @RequestBody AdminDTO adminDTO) {
 	 
 		AdminDTO admin = authService.registerAdmin(adminDTO);
 	        if (admin == null) {
-	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
 	        }
 
 	        System.out.println("Registrovan novi admin: " + admin.getFirstName() + " " + admin.getLastName());
-	        return new ResponseEntity<>(admin, HttpStatus.CREATED);
+	        return new ResponseEntity<>(true, HttpStatus.CREATED);
 	}
 	
 	
-	@PostMapping(value = "/register-entity")
-	public ResponseEntity<EntityDTO> registerEntity(@RequestBody EntityDTO entityDTO) {
-	 
+	@PostMapping(value = "/register-entity", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> registerEntity(@Valid @RequestBody EntityDTO entityDTO) {
+
 		EntityDTO entity = authService.registerEnitity(entityDTO);
 	        if (entity == null) {
-	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
 	        }
 	        
 	        System.out.println("Registrovan novi entitet: " + entity.getCommonName());
-	        return new ResponseEntity<>(entity, HttpStatus.CREATED);
+	        return new ResponseEntity<>(true, HttpStatus.CREATED);
 	}
 	
 	
-	@PostMapping(value= "/login")
-	public ResponseEntity<LoggedInUserDTO> login(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException, IOException {
+	@PostMapping(value= "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LoggedInUserDTO> login(@Valid @RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException, IOException {
 		 
 		 try {
 	        	
@@ -72,6 +78,56 @@ public class AuthenticationController {
 	        }
 	        
 	        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	@GetMapping(value="/reset-password")
+	public ResponseEntity<Boolean> resetPassword(@RequestParam("emailAddress") String emailAddress){
+		
+		Boolean mailSent = this.authService.resetPasswordSendMail(emailAddress);
+		
+
+		
+		if(!mailSent) {
+			
+			System.out.println("nema naloga sa ovim emailom");
+			return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+			 
+		} else {
+			
+			System.out.println("mejl je poslat");
+			return new ResponseEntity<>(true, HttpStatus.OK); 
+			 
+		}
+		
+	}
+	
+	
+	@GetMapping(value="/confirm-account")
+	public ResponseEntity<Boolean> confirmAccount(@RequestParam("token")String confirmationToken){
+		
+		System.out.println("poslao si token: " + confirmationToken);
+		
+		boolean confirmed = authService.confirmAccount(confirmationToken);
+		if(confirmed) {
+			return new ResponseEntity<>(confirmed, HttpStatus.ACCEPTED);
+		} else {
+			return new ResponseEntity<>(confirmed, HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
+	@PostMapping(value="/new-password", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> newPassword(@Valid @RequestBody NewpasswordDTO newPasswordDTO){
+		
+		System.out.println("poslao si token: " + newPasswordDTO.getToken());
+		
+		boolean confirmed = authService.newPassword(newPasswordDTO);
+		if(confirmed) {
+			return new ResponseEntity<>(confirmed, HttpStatus.ACCEPTED);
+		} else {
+			return new ResponseEntity<>(confirmed, HttpStatus.BAD_REQUEST);
+		}
 		
 	}
 	

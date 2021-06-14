@@ -28,15 +28,16 @@ export class RegisterUserComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       email : new FormControl(null, [Validators.required, Validators.email]),
       password : new FormControl(null, [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{10,}$') ] ),
-      repeatedPassword :  new FormControl(null, [Validators.required]),
+      repeatedPassword :  new FormControl(null, [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{10,}$') ] ),
       commonName : new FormControl(null, [Validators.required]),
-      firstName : new FormControl(null, [Validators.required]),
-      lastName : new FormControl(null, [Validators.required]),
-      organization : new FormControl(null, [Validators.required]),
-      organizationUnit : new FormControl(null, [Validators.required]),
-      state : new FormControl(null, [Validators.required]),
-      country : new FormControl(null, [Validators.required]),
-       
+      firstName : new FormControl(null, [Validators.required, Validators.pattern('[ a-zA-Z]*')]),
+      lastName : new FormControl(null, [Validators.required, Validators.pattern('[ a-zA-Z]*')]),
+      organization : new FormControl(null, [Validators.required, Validators.pattern('[ a-zA-Z0-9_]*')]),
+      organizationUnit : new FormControl(null, [Validators.required, Validators.pattern('[ a-zA-Z0-9_]*')]),
+      state : new FormControl(null, [Validators.required, Validators.pattern('[ a-zA-Z]*')]),
+      country : new FormControl(null, [Validators.required, Validators.pattern('[ a-zA-Z]*')]),
+      question : new FormControl(null, [Validators.required]),
+      answer : new FormControl(null, [Validators.required])
     })
 
 
@@ -47,8 +48,15 @@ export class RegisterUserComponent implements OnInit {
 
    onSubmit() {
 
-      if(this.registerForm.value.password != this.registerForm.value.repeatedPassword){
-        this.toastr.error("Lozinka i ponovljena lozinka se ne smeju razlikovati. Pokušajte ponovo.");
+      this.submitted = true;
+
+      if(this.registerForm.invalid){
+        return;
+      }
+
+      if(this.registerForm.value.password != this.registerForm.value.repeatedPassword ){
+        this.toastr.error("Lozinka i ponovljena lozinka se ne poklapaju!");
+        return;
       }
 
       this.entity = new Entity(this.registerForm.value.email,
@@ -59,7 +67,9 @@ export class RegisterUserComponent implements OnInit {
                               this.registerForm.value.organization,
                               this.registerForm.value.organizationUnit,
                               this.registerForm.value.state,
-                              this.registerForm.value.country        
+                              this.registerForm.value.country,
+                              this.registerForm.value.question,
+                              this.registerForm.value.answer
                         )
 
       this.userService.registerUser(this.entity).subscribe(
@@ -74,5 +84,10 @@ export class RegisterUserComponent implements OnInit {
 
 
    }
+
+    onReset() {
+        this.submitted = false;
+        this.registerForm.reset();
+    }
 
 }

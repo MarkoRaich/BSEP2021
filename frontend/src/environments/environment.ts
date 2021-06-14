@@ -5,11 +5,14 @@
 export const environment = {
   production: false,
   itemsPerPage: 10,
-  baseUrl: "http://localhost:8080",
+  baseUrl: "https://localhost:8443", 
 
   login               : "/api/auth/login",
-  registerUser            : "/api/auth/register-entity",
-  registerAdmin            : "/api/auth/register-admin"
+  registerUser        : "/api/auth/register-entity",
+  registerAdmin       : "/api/auth/register-admin",
+  resetPassword       : "/api/auth/reset-password/",
+  confirmAccount      : "/api/auth/confirm-account/",
+  newPass             : "/api/auth/new-password"
 };
 
 /*

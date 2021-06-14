@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
 
               },
             (error) => {               
-                this.toastr.error("Neispravni kredencijali. Pokušajte ponovo.", 'Login');
+                this.toastr.error("Neuspešno logovanje. Proverite kredencijale ili aktivirajte nalog", 'Login');
         })
     }
 

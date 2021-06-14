@@ -1,0 +1,18 @@
+<div class="main-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <mat-card>
+            <div *ngIf="success" class="form-group">
+              <p>Uspešno Ste aktivirali Vaš nalog! Možete se prijaviti sa Vašim emailom i lozinkom </p>
+              <a routerLink="/login">Uloguj se.</a>
+            </div>
+            <div *ngIf="!success" class="form-group">
+              <p>Neuspešna aktivacija, token je istekao ili nije validan. Obratite se administratoru za podršku</p>
+            </div>
+                 
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

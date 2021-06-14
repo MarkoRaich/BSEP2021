@@ -4,22 +4,30 @@ package ftn.bsep.service.Impl;
 import ftn.bsep.dto.AdminDTO;
 import ftn.bsep.dto.EntityDTO;
 import ftn.bsep.dto.LoggedInUserDTO;
+import ftn.bsep.dto.NewpasswordDTO;
 import ftn.bsep.dto.UserTokenState;
 import ftn.bsep.model.Admin;
 import ftn.bsep.model.Authority;
+import ftn.bsep.model.ConfirmationToken;
 import ftn.bsep.model.DigEntity;
+import ftn.bsep.model.ResetToken;
 import ftn.bsep.repository.AdminRepository;
 import ftn.bsep.repository.AuthorityRepository;
+import ftn.bsep.repository.ConfirmationTokenRepository;
 import ftn.bsep.repository.EntityRepository;
+import ftn.bsep.repository.ResetTokenRepository;
 import ftn.bsep.security.TokenUtils;
 import ftn.bsep.security.auth.JwtAuthenticationRequest;
 import ftn.bsep.service.AuthenticationService;
+import ftn.bsep.service.EmailSenderService;
 import ftn.bsep.service.UserService;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -46,10 +54,22 @@ public class AuthenticationServiceImp implements AuthenticationService {
 	 private EntityRepository entityRepository;
 	 
 	 @Autowired
+	 private ConfirmationTokenRepository confirmationTokenRepository;
+	 
+	 @Autowired
+	 private ResetTokenRepository resetTokenRepository;
+	 
+	 @Autowired
 	 private AuthenticationManager authManager;
 	 
 	 @Autowired
 	 private TokenUtils tokenUtils;
+	 
+	 @Autowired
+	 private EmailSenderService emailSenderService;
+	 
+	 @Autowired
+	 private Environment env;
 	
 	
 	 @Override
@@ -104,6 +124,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
 	@Override
 	public EntityDTO registerEnitity(EntityDTO entityDTO) {
 
+		
 		//provera da li postoji nalog sa tim email-om
 		if(userService.emailIsUsed(entityDTO.getEmail())) {
 			
@@ -111,6 +132,8 @@ public class AuthenticationServiceImp implements AuthenticationService {
 			return null;
 		}
 		
+		
+		//pravljenje entiteta i cuvanje u bazi
 		DigEntity entity = new DigEntity();
 		entity.setUsername(entityDTO.getEmail());
 		entity.setCommonName(entityDTO.getCommonName());
@@ -120,13 +143,32 @@ public class AuthenticationServiceImp implements AuthenticationService {
 		entity.setOrganizationUnit(entityDTO.getOrganizationUnit());
 		entity.setState(entityDTO.getState());
 		entity.setCountry(entityDTO.getCountry());
+		entity.setSecurityQuestion(entityDTO.getSecurityQuestion());
+		entity.setSecurityAnswer(entityDTO.getSecurityAnswer());
 		entity.setHasActiveCertificate(false);
+		entity.setEnabled(false);
 		
 		
 		entity.setPassword(passwordEncoder.encode(entityDTO.getPassword()));
 		entity.setAuthorities(findByName("ROLE_USER"));
 		
-		return new EntityDTO(entityRepository.save(entity));
+		EntityDTO temp = new EntityDTO(entityRepository.save(entity));
+		
+		//pravljenje emaila sa konfirmacionim tokenom i slanje na mejl
+		ConfirmationToken confirmationToken = new ConfirmationToken(entity);
+
+        confirmationTokenRepository.save(confirmationToken);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(entity.getUsername());
+        mailMessage.setSubject("Uspešna Registracija na PKI");
+        mailMessage.setFrom(env.getProperty("spring.mail.username"));
+        mailMessage.setText("Da biste potvrdili Vaš nalog kliknite na ovaj link : "
+        +"https://localhost:4200/confirm-account?token="+confirmationToken.getConfirmationToken());
+
+        emailSenderService.sendEmail(mailMessage);
+        
+        return temp;
 	}
 
 	
@@ -163,6 +205,82 @@ public class AuthenticationServiceImp implements AuthenticationService {
         return null;
  
     }
+
+	@Override
+	public boolean confirmAccount(String confirmationToken) {
+
+
+		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if(token != null && !token.isExpired())
+        {
+            DigEntity entity = entityRepository.findByUsername(token.getEntity().getUsername());
+            entity.setEnabled(true);
+            entityRepository.save(entity);
+            
+            System.out.println("Nalog je aktiviran");
+            return true;
+        }
+        else
+        {
+           System.out.println("token ne valja");
+           return false;
+        }
+
+      
+		
+	}
+
+	@Override
+	public Boolean resetPasswordSendMail(String emailAddress) {
+
+		DigEntity entity = this.entityRepository.findOneByUsername(emailAddress);
+		
+		if(entity == null) {
+			return false;
+		} else {
+			
+			//pravljenje emaila sa konfirmacionim tokenom i slanje na mejl
+			ResetToken resetToken = new ResetToken(entity);
+
+	        resetTokenRepository.save(resetToken);
+
+	        SimpleMailMessage mailMessage = new SimpleMailMessage();
+	        mailMessage.setTo(entity.getUsername());
+	        mailMessage.setSubject("Zahtev za promenu lozinke");
+	        mailMessage.setFrom(env.getProperty("spring.mail.username"));
+	        mailMessage.setText("Da biste napravili novu lozinku za Vaš nalog kliknite na ovaj link : "
+	        +"https://localhost:4200/new-password?token="+resetToken.getResetToken());
+
+	        emailSenderService.sendEmail(mailMessage);
+			
+			return true;
+		}
+
+	}
+
+	@Override
+	public boolean newPassword(NewpasswordDTO newPasswordDTO) {
+
+		ResetToken token = resetTokenRepository.findByResetToken(newPasswordDTO.getToken());
+
+        if(token != null && !token.isExpired())
+        {
+            DigEntity entity = entityRepository.findByUsername(token.getEntity().getUsername());
+            entity.setPassword(passwordEncoder.encode(newPasswordDTO.getPassword()));
+            entityRepository.save(entity);
+            
+            System.out.println("Lozinka je promenjena");
+            return true;
+        }
+        else
+        {
+           System.out.println("Token ne valja");
+           return false;
+        }
+		
+		
+	}
 
 
 	

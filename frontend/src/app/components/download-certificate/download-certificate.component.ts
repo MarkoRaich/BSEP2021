@@ -42,7 +42,7 @@ export class DownloadCertificateComponent implements OnInit {
         this.certificateDataSource.paginator = this.paginator;
       },
       () => {
-        this.toastr.error("Entitet nema izdat sertifikat...");
+        this.toastr.error("Došlo je do greške...");
       }
     )
   }

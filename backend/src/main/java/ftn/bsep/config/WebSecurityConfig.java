@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	    @Autowired
 	    private TokenUtils tokenUtils;
 	    
-	    // Registrujemo authentication manager koji ce da uradi autentifikaciju korisnika za nas
+	    // Registrujemo authentication managera koji ce da uradi autentifikaciju korisnika za nas
 	    @Bean
 	    @Override
 	    public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -75,8 +75,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	        	
 	            .addFilterBefore( //ubacivanje filtera za proveru tokena u lanac filtera
 	        		new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
-	        		BasicAuthenticationFilter.class
-	        	);
+	        		BasicAuthenticationFilter.class);
+	        
 
 	        http.csrf().disable();
 	    }
@@ -84,7 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	    @Override
 	    public void configure(WebSecurity web) throws Exception {
 	       
-
+	    	
 	      
 	        
 	    }

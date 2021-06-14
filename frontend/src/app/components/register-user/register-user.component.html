@@ -1,84 +1,134 @@
 <div class="main-content">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 offset-md-2">
-          <mat-card>
-            <h3>Registracija</h3>
-            <hr>
-            <form [formGroup]="registerForm">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-8 offset-md-2">
+                  <mat-card>
+                      <h3>Registracija</h3>
+                      <hr>
+                      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-              <div class="form-group">
-                  <label for="email">Email (u formi validne email adrese)</label>
-                  <input type="text" formControlName="email" class="form-control" 
-                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                        <div *ngIf="f.email.errors.required">Email je obavezno polje</div>
-                        <div *ngIf="f.email.errors.email">Email mora biti ispravna email adresa</div>
-                  </div>
-              </div>
+                        <div class="form-group">
+                            <label for="email">Email (u formi validne email adrese)</label>
+                            <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                  <div *ngIf="f.email.errors.required">Email je obavezno polje</div>
+                                  <div *ngIf="f.email.errors.email">Email mora biti ispravna email adresa</div>
+                            </div>
+                        </div>
 
-              <div class="form-group">
-                  <label for="password">Lozinka (minimalno 10 karaktera, broj, veliko slovo, malo slovo i specijalni karakter)</label>
-                  <input type="password" formControlName="password" class="form-control"
-                   [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                        <div *ngIf="f.password.errors.required">Lozinka je obavezno polje</div>
-                      <!-- jos neka ogranicenja na lozinku duzina, karakteri itd... -->
-                  </div>
-              </div>
+                        <div class="form-group">
+                            <label for="password">Lozinka (minimalno 10 karaktera, broj, veliko slovo, malo slovo i specijalni karakter)</label>
+                            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                  <div *ngIf="f.password.errors.required">Lozinka je obavezno polje</div>
+                                  <div *ngIf="f.password.errors.pattern">Lozinka ne ispunjava kriterijume</div>
+                                  
+                            </div>
+                        </div>
 
-              <div class="form-group">
-                <label for="password">Ponovljena lozinka (minimalno 10 karaktera, broj, veliko slovo, malo slovo i specijalni karakter)</label>
-                <input type="password" formControlName="repeatedPassword" class="form-control"
-                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                      <div *ngIf="f.password.errors.required">Lozinka je obavezno polje</div>
-                    <!-- jos neka ogranicenja na lozinku duzina, karakteri itd... -->
-                </div>
-            </div>
+                        <div class="form-group">
+                          <label for="password">Ponovljena lozinka (minimalno 10 karaktera, broj, veliko slovo, malo slovo i specijalni karakter)</label>
+                          <input type="password" formControlName="repeatedPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.repeatedPassword.errors }" />
+                          <div *ngIf="submitted && f.repeatedPassword.errors" class="invalid-feedback">
+                                <div *ngIf="f.repeatedPassword.errors.required">Lozinka je obavezno polje</div>
+                                <div *ngIf="f.repeatedPassword.errors.pattern">Ponovljena lozinka ne ispunjava kriterijume</div>
+                                
+                          </div>
+                        </div>
 
-            <div class="form-group">
-                <label for="password">Opšte ime</label>
-                <input  type="text" formControlName="commonName" class="form-control">
-            </div>
-        
-            <div class="form-group">
-                <label for="password">Ime</label>
-                <input  type="text" formControlName="firstName" class="form-control">
-            </div>
+                        <div class="form-group">
+                            <label for="password">Opšte ime</label>
+                            <input  type="text" formControlName="commonName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.commonName.errors }" />
+                            <div *ngIf="submitted && f.commonName.errors" class="invalid-feedback">
+                                <div *ngIf="f.commonName.errors.required">Opšte ime je obavezno polje</div>
+                                <div *ngIf="f.commonName.errors.pattern">Opšte ime ne ispunjava kriterijume</div>
+                            </div>
+                        </div>
+                  
+                        <div class="form-group">
+                            <label for="password">Ime</label>
+                            <input  type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                                <div *ngIf="f.firstName.errors.required">Ime je obavezno polje</div>
+                                <div *ngIf="f.firstName.errors.pattern">Ime ne ispunjava kriterijume</div>
+                            </div>
+                        </div>
 
-            <div class="form-group">
-                <label for="password">Prezime</label>
-                <input  type="text" formControlName="lastName" class="form-control">
-            </div>
-       
-            <div class="form-group">
-                <label for="password">Organizacija</label>
-                <input  type="text" formControlName="organization" class="form-control">
-            </div>
+                        <div class="form-group">
+                            <label for="password">Prezime</label>
+                            <input  type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                                <div *ngIf="f.lastName.errors.required">Prezime je obavezno polje</div>
+                                <div *ngIf="f.lastName.errors.pattern">Prezime ne ispunjava kriterijume</div>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="password">Organizacija</label>
+                            <input  type="text" formControlName="organization" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.organization.errors }" />
+                            <div *ngIf="submitted && f.organization.errors" class="invalid-feedback">
+                                <div *ngIf="f.organization.errors.required">Organizacija je obavezno polje</div>
+                                <div *ngIf="f.organization.errors.pattern">Organizacija ne ispunjava kriterijume</div>
+                            </div>
+                        </div>
 
-            <div class="form-group">
-                <label for="password">Organizaciona jedinica</label>
-                <input  type="text" formControlName="organizationUnit" class="form-control">
-            </div>
-       
-            <div class="form-group">
-                <label for="password">Regija</label>
-                <input  type="text" formControlName="state" class="form-control">
-            </div>
+                        <div class="form-group">
+                            <label for="password">Organizaciona jedinica</label>
+                            <input  type="text" formControlName="organizationUnit" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.organizationUnit.errors }" />
+                            <div *ngIf="submitted && f.organizationUnit.errors" class="invalid-feedback">
+                                <div *ngIf="f.organizationUnit.errors.required">Organizaciona jedinica je obavezno polje</div>
+                                <div *ngIf="f.organizationUnit.errors.pattern">Organizaciona jedinica ne ispunjava kriterijume</div>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="password">Regija</label>
+                            <input  type="text" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" />
+                            <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                                <div *ngIf="f.state.errors.required">Regija je obavezno polje</div>
+                                <div *ngIf="f.state.errors.pattern">Regija ne ispunjava kriterijume</div>
+                            </div>
+                        </div>
 
-            <div class="form-group">
-                <label for="password">Država</label>
-                <input  type="text" formControlName="country" class="form-control">
-            </div>
-        
-          
-              <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!registerForm.valid">Registruj se</button>
+                        <div class="form-group">
+                            <label for="password">Država</label>
+                            <input  type="text" formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.country.errors }" />
+                            <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                                <div *ngIf="f.country.errors.required">Država je obavezno polje</div>
+                                <div *ngIf="f.country.errors.pattern">Država ne ispunjava kriterijume</div>
 
-            
-            </form>
-        </mat-card>
-      </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Sigurnosno pitanje</label>
+                            <input  type="text" formControlName="question" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.question.errors }" />
+                            <div *ngIf="submitted && f.question.errors" class="invalid-feedback">
+                                <div *ngIf="f.question.errors.required">Sigurnosno pitanje je obavezno polje</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Odgovor na pitanje</label>
+                            <input  type="text" formControlName="answer" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.answer.errors }" />
+                            <div *ngIf="submitted && f.answer.errors" class="invalid-feedback">
+                                <div *ngIf="f.answer.errors.required">Odgovor na pitanje je obavezno polje</div>
+                            </div>
+                        </div>
+                  
+                        <div class="text-center">
+                          <button class="btn btn-primary mr-1">Registruj se</button>
+                          <button class="btn btn-secondary" type="reset" (click)="onReset()">Poništi</button>
+                        </div>
+                      
+                      </form>
+                </mat-card>
+            </div>
+        </div>
+
     </div>
-  </div>
+
 </div>
+
+
+

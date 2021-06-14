@@ -7,6 +7,7 @@ import java.util.Set;
 import ftn.bsep.dto.AdminDTO;
 import ftn.bsep.dto.EntityDTO;
 import ftn.bsep.dto.LoggedInUserDTO;
+import ftn.bsep.dto.NewpasswordDTO;
 import ftn.bsep.model.Authority;
 
 public interface AuthenticationService {
@@ -18,6 +19,12 @@ public interface AuthenticationService {
 	EntityDTO registerEnitity(EntityDTO entityDTO);
 	
 	Set<Authority> findByName(String name);
+
+	boolean confirmAccount(String confirmationToken);
+
+	Boolean resetPasswordSendMail(String emailAddress);
+
+	boolean newPassword(NewpasswordDTO newPasswordDTO);
 	
 
 	

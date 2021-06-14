@@ -7,6 +7,7 @@ import { environment } from "src/environments/environment";
 import { Admin } from "../models/admin";
 import { Entity } from "../models/entity";
 import { LoggedInUser } from "../models/loggedInUser";
+import { NewPass } from "../models/newPass";
 import { UserLoginRequest } from "../models/userLoginRequest";
 import { UserTokenState } from "../models/userTokenState";
 
@@ -20,7 +21,7 @@ export class UserService {
     loggedInUser: Observable<LoggedInUser>;
     loggedInSuccess: BehaviorSubject<LoggedInUser> = new BehaviorSubject<LoggedInUser>(null);
 
-
+    question: BehaviorSubject<String> = new BehaviorSubject<String>("");
 
     constructor(private http: HttpClient, private router: Router) {
         this.loggedInUserSubject = new BehaviorSubject<LoggedInUser>(JSON.parse(localStorage.getItem('LoggedInUser')));
@@ -40,12 +41,25 @@ export class UserService {
         }));
     }
 
+    resetPassword(email: string) {
+       return this.http.get(environment.baseUrl + environment.resetPassword + "?emailAddress=" + email )   
+    }
+   
+
     registerUser(entity: Entity) {
       return this.http.post<Entity>(environment.baseUrl + environment.registerUser, entity)
     }
 
     registerAdmin(admin: Admin) {
       return this.http.post<Admin>(environment.baseUrl + environment.registerAdmin, admin)
+    }
+
+    confirmAccount(token: string) {
+      return this.http.get(environment.baseUrl + environment.confirmAccount + "?token=" + token);
+    }
+
+    newPassword(newPass: NewPass) {
+      return this.http.post<NewPass>(environment.baseUrl + environment.newPass, newPass);
     }
 
 

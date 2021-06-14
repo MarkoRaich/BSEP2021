@@ -37,21 +37,29 @@ public class EntityDTO {
 	@NotEmpty(message = "Country is empty.")
     private String country;
 	
+	@NotEmpty(message = "Question is empty.")
+	private String securityQuestion;
+	
+	@NotEmpty(message = "Answer is empty.")
+	private String securityAnswer;
+	
 	
 	public EntityDTO() {
 		super();
 	}
 
 
-	public EntityDTO(@NotEmpty(message = "Email is empty.") @Email(message = "Email is invalid.") String email,
-			@NotEmpty(message = "Password is empty.") @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$") String password,
-			@NotEmpty(message = "Common name is empty.") String commonName,
-			@NotEmpty(message = "First Name is empty.") String firstName,
-			@NotEmpty(message = "Last Name is empty.") String lastName,
-			@NotEmpty(message = "Organization is empty.") String organization,
-			@NotEmpty(message = "Organization unit is empty.") String organizationUnit,
-			@NotEmpty(message = "State is empty.") String state,
-			@NotEmpty(message = "Country is empty.") String country) {
+	public EntityDTO(	@NotEmpty(message = "Email is empty.") @Email(message = "Email is invalid.") String email,
+						@NotEmpty(message = "Password is empty.") @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$") String password,
+						@NotEmpty(message = "Common name is empty.") String commonName,
+						@NotEmpty(message = "First Name is empty.") String firstName,
+						@NotEmpty(message = "Last Name is empty.") String lastName,
+						@NotEmpty(message = "Organization is empty.") String organization,
+						@NotEmpty(message = "Organization unit is empty.") String organizationUnit,
+						@NotEmpty(message = "State is empty.") String state,
+						@NotEmpty(message = "Country is empty.") String country,
+						@NotEmpty(message = "Question is empty.") String securityQuestion,
+						@NotEmpty(message = "Answer is empty.") String securityAnswer) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -62,6 +70,8 @@ public class EntityDTO {
 		this.organizationUnit = organizationUnit;
 		this.state = state;
 		this.country = country;
+		this.securityQuestion = securityQuestion;
+		this.securityAnswer = securityAnswer;
 	}
 	
 	public EntityDTO(DigEntity entity) {
@@ -73,6 +83,8 @@ public class EntityDTO {
 		this.organizationUnit = entity.getOrganizationUnit();
 		this.state = entity.getState();
 		this.country = entity.getCountry();
+		this.securityQuestion = entity.getSecurityQuestion();
+		this.securityAnswer = entity.getSecurityAnswer();
 	}
 
 
@@ -164,7 +176,37 @@ public class EntityDTO {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+
+
+	public String getSecurityQuestion() {
+		return securityQuestion;
+	}
+
+
+	public void setSecurityQuestion(String securityQuestion) {
+		this.securityQuestion = securityQuestion;
+	}
+
+
+	public String getSecurityAnswer() {
+		return securityAnswer;
+	}
+
+
+	public void setSecurityAnswer(String securityAnswer) {
+		this.securityAnswer = securityAnswer;
+	}
+
+
+	@Override
+	public String toString() {
+		return "EntityDTO [email=" + email + ", password=" + password + ", commonName=" + commonName + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", organization=" + organization + ", organizationUnit="
+				+ organizationUnit + ", state=" + state + ", country=" + country + ", securityQuestion="
+				+ securityQuestion + ", securityAnswer=" + securityAnswer + "]";
+	}
+
+
 	
 	
 }

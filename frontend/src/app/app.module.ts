@@ -23,6 +23,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
 import { DownloadCertificateComponent } from './components/download-certificate/download-certificate.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ConfirmAccountComponent } from './components/confirm-account/confirm-account.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { DownloadCertificateComponent } from './components/download-certificate/
     NonAuthenticatedComponent,
     NonAuthorizedComponent,
     RegisterUserComponent,
-    DownloadCertificateComponent
+    DownloadCertificateComponent,
+    ResetPasswordComponent,
+    ConfirmAccountComponent,
+    NewPasswordComponent
   ],
   imports: [
     BrowserModule,

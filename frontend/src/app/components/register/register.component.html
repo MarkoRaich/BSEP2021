@@ -9,9 +9,8 @@
 
               <div class="form-group">
                   <label for="email">Email (u formi validne email adrese)</label>
-                  <input type="text" formControlName="email" class="form-control" 
-                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <input type="text" formControlName="email" id="email" class="form-control"/>
+                  <div *ngIf="f.email.errors" class="invalid-feedback">
                         <div *ngIf="f.email.errors.required">Email je obavezno polje</div>
                         <div *ngIf="f.email.errors.email">Email mora biti ispravna email adresa</div>
                   </div>
